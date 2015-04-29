@@ -1,6 +1,6 @@
 <div class="facultades index">
 	<h2><?php echo __('Facultades'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
+	<table style="border-spacing: 0px;">
 	<thead>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
@@ -18,9 +18,8 @@
 		<td><?php echo h($facultade['Facultade']['nombre']); ?>&nbsp;</td>
 		<td><?php echo h($facultade['Facultade']['estado']); ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $facultade['Facultade']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $facultade['Facultade']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $facultade['Facultade']['id']), array(), __('Are you sure you want to delete # %s?', $facultade['Facultade']['id'])); ?>
+			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $facultade['Facultade']['id'])); ?>
+			<?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $facultade['Facultade']['id']), array(), __('¿Esta seguro que desea borrar %s?', $facultade['Facultade']['nombre'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -43,8 +42,7 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('New Facultade'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Carreras'), array('controller' => 'carreras', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Carrera'), array('controller' => 'carreras', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Nueva Facultad'), array('action' => 'add')); ?></li>
+		<li><?php echo $this->Html->link(__('Lista de Carreras'), array('controller' => 'carreras', 'action' => 'index')); ?> </li>
 	</ul>
 </div>

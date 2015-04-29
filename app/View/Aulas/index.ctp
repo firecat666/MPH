@@ -1,10 +1,10 @@
 <div class="aulas index">
 	<h2><?php echo __('Aulas'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
+	<table style="border-spacing: 0px;">
 	<thead>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('codigo'); ?></th>
+			<th><?php echo $this->Paginator->sort('codigo','Código'); ?></th>
 			<th><?php echo $this->Paginator->sort('nombre'); ?></th>
 			<th><?php echo $this->Paginator->sort('capacidad'); ?></th>
 			<th><?php echo $this->Paginator->sort('estado'); ?></th>
@@ -24,7 +24,6 @@
 			<?php echo $this->Html->link($aula['Tipoaula']['tipo'], array('controller' => 'tipoaulas', 'action' => 'view', $aula['Tipoaula']['id'])); ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $aula['Aula']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $aula['Aula']['id'])); ?>
 			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $aula['Aula']['id']), array(), __('Are you sure you want to delete # %s?', $aula['Aula']['id'])); ?>
 		</td>
@@ -49,10 +48,7 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('New Aula'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Tipoaulas'), array('controller' => 'tipoaulas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Tipoaula'), array('controller' => 'tipoaulas', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Asignaciones'), array('controller' => 'asignaciones', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Asignacione'), array('controller' => 'asignaciones', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Nueva Aula'), array('action' => 'add')); ?></li>
+		<li><?php echo $this->Html->link(__('Lista Tipo de Aulas'), array('controller' => 'tipoaulas', 'action' => 'index')); ?> </li>
 	</ul>
 </div>

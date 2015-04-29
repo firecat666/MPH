@@ -1,6 +1,6 @@
 <div class="carreras index">
 	<h2><?php echo __('Carreras'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
+	<table style="border-spacing: 0px;">
 	<thead>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
@@ -22,7 +22,6 @@
 			<?php echo $this->Html->link($carrera['Facultade']['codigo'], array('controller' => 'facultades', 'action' => 'view', $carrera['Facultade']['id'])); ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $carrera['Carrera']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $carrera['Carrera']['id'])); ?>
 			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $carrera['Carrera']['id']), array(), __('Are you sure you want to delete # %s?', $carrera['Carrera']['id'])); ?>
 		</td>
@@ -47,10 +46,8 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('New Carrera'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Facultades'), array('controller' => 'facultades', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Facultade'), array('controller' => 'facultades', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Asignaturas'), array('controller' => 'asignaturas', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Asignatura'), array('controller' => 'asignaturas', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Nueva Carrera'), array('action' => 'add')); ?></li>
+		<li><?php echo $this->Html->link(__('Lista de Facultades'), array('controller' => 'facultades', 'action' => 'index')); ?> </li>		
+		<li><?php echo $this->Html->link(__('Lista de Asignaturas'), array('controller' => 'asignaturas', 'action' => 'index')); ?> </li>
 	</ul>
 </div>

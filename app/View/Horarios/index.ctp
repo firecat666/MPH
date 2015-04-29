@@ -1,6 +1,6 @@
 <div class="horarios index">
 	<h2><?php echo __('Horarios'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
+	<table style="border-spacing: 0px;">
 	<thead>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
@@ -18,7 +18,6 @@
 		<td><?php echo h($horario['Horario']['periodo']); ?>&nbsp;</td>
 		<td><?php echo h($horario['Horario']['estado']); ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $horario['Horario']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $horario['Horario']['id'])); ?>
 			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $horario['Horario']['id']), array(), __('Are you sure you want to delete # %s?', $horario['Horario']['id'])); ?>
 		</td>
@@ -43,8 +42,6 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('New Horario'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Asignaciones'), array('controller' => 'asignaciones', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Asignacione'), array('controller' => 'asignaciones', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Nuevo Horario'), array('action' => 'add')); ?></li>
 	</ul>
 </div>
