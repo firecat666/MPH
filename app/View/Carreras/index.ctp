@@ -4,11 +4,11 @@
 	<thead>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('codigo'); ?></th>
-			<th><?php echo $this->Paginator->sort('nombre'); ?></th>
-			<th><?php echo $this->Paginator->sort('estado'); ?></th>
-			<th><?php echo $this->Paginator->sort('facultade_id'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
+			<th><?php echo $this->Paginator->sort('codigo','Código'); ?></th>
+			<th><?php echo $this->Paginator->sort('nombre','Nombre'); ?></th>
+			<th><?php echo $this->Paginator->sort('estado','Estado'); ?></th>
+			<th><?php echo $this->Paginator->sort('facultade_id','Facultad'); ?></th>
+			<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
 	</thead>
 	<tbody>
@@ -19,11 +19,11 @@
 		<td><?php echo h($carrera['Carrera']['nombre']); ?>&nbsp;</td>
 		<td><?php echo h($carrera['Carrera']['estado']); ?>&nbsp;</td>
 		<td>
-			<?php echo $this->Html->link($carrera['Facultade']['codigo'], array('controller' => 'facultades', 'action' => 'view', $carrera['Facultade']['id'])); ?>
+			<?php echo $this->Html->link($carrera['Facultade']['nombre'], array('controller' => 'facultades', 'action' => 'edit', $carrera['Facultade']['id'])); ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $carrera['Carrera']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $carrera['Carrera']['id']), array(), __('Are you sure you want to delete # %s?', $carrera['Carrera']['id'])); ?>
+			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $carrera['Carrera']['id'])); ?>
+			<?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $carrera['Carrera']['id']), array(), __('¿Esta seguro que desea borrar %s?', $carrera['Carrera']['nombre'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -32,7 +32,7 @@
 	<p>
 	<?php
 	echo $this->Paginator->counter(array(
-	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
+	'format' => __('Página {:page} de {:pages}, Se muestran {:current} registros de {:count}, iniciando en el registro {:start} hasta {:end}')
 	));
 	?>	</p>
 	<div class="paging">
