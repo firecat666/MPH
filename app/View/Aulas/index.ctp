@@ -5,11 +5,11 @@
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('codigo','Código'); ?></th>
-			<th><?php echo $this->Paginator->sort('nombre'); ?></th>
-			<th><?php echo $this->Paginator->sort('capacidad'); ?></th>
-			<th><?php echo $this->Paginator->sort('estado'); ?></th>
-			<th><?php echo $this->Paginator->sort('tipoaula_id'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
+			<th><?php echo $this->Paginator->sort('nombre','Nombre'); ?></th>
+			<th><?php echo $this->Paginator->sort('capacidad','Capacidad'); ?></th>
+			<th><?php echo $this->Paginator->sort('estado','Estado'); ?></th>
+			<th><?php echo $this->Paginator->sort('tipoaula_id','Tipo de Aula'); ?></th>
+			<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
 	</thead>
 	<tbody>
