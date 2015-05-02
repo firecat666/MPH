@@ -1,23 +1,21 @@
 <div class="horarios form">
-<?php echo $this->Form->create('Horario'); ?>
-	<fieldset>
-		<legend><?php echo __('Edit Horario'); ?></legend>
-	<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('hora');
-		echo $this->Form->input('periodo');
-		echo $this->Form->input('estado');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
+    <?php echo $this->Form->create('Horario'); ?>
+    <fieldset>
+        <legend><?php echo __('Editar Horario'); ?></legend>
+        <?php
+        echo $this->Form->input('id');
+        echo $this->Form->input('hora');
+        echo $this->Form->input('periodo', ['empty' => 'Seleccione Periodo', 'label' => 'Periodo', 'type' => 'select', 'options' => $periodos]);
+        echo $this->Form->input('estado');
+        ?>
+    </fieldset>
+    <?php echo $this->Form->end(__('Guardar')); ?>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
+    <h3><?php echo __('Acciones'); ?></h3>
+    <ul>
 
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Horario.id')), array(), __('Are you sure you want to delete # %s?', $this->Form->value('Horario.id'))); ?></li>
-		<li><?php echo $this->Html->link(__('List Horarios'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Asignaciones'), array('controller' => 'asignaciones', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Asignacione'), array('controller' => 'asignaciones', 'action' => 'add')); ?> </li>
-	</ul>
+        <li><?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $this->Form->value('Horario.id')), array(), __('¿Esta seguro que desea borrar el horario de %s %s?', [$this->Form->value('Horario.hora'), $this->Form->value('Horario.periodo')])); ?></li>
+        <li><?php echo $this->Html->link(__('Lista Horarios'), array('action' => 'index')); ?></li>
+    </ul>
 </div>

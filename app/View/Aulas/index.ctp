@@ -46,7 +46,7 @@
     </div>
 </div>
 <div class="actions">
-    <h3><?php echo __('Actions'); ?></h3>
+    <h3><?php echo __('Acciones'); ?></h3>
     <ul>
         <li><?php echo $this->Html->link(__('Nueva Aula'), array('action' => 'add')); ?></li>
         <li><?php echo $this->Html->link(__('Lista Tipo de Aulas'), array('controller' => 'tipoaulas', 'action' => 'index')); ?> </li>
