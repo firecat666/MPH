@@ -16,12 +16,31 @@ class AsignacionesController extends AppController {
      *
      * @var array
      */
-    public $components = array('Paginator', 'Session');
+    public $components = array('Paginator', 'Session', 'RequestHandler');
 
     public function asignacion() {
 
+        $dias = $this->Asignacione->Dia->find('list');
+        $this->set(compact('dias'));
+
+        $this->Asignacione->Horario->recursive = 0;
+        $horarios = $this->Asignacione->Horario->find('all');
+        $arrayHorarios = [];
+        foreach ($horarios as $horario) {
+            $arrayHorarios[$horario['Horario']['id']] = $horario['Horario']['hora'] . ' ' . $horario['Horario']['periodo'];
+        }
+        $this->set('horarios', $arrayHorarios);
+
         $capacidades = [5 => 5, 20 => 20, 40 => 40];
         $this->set(compact('capacidades'));
+    }
+
+    public function disponibles() {
+        $this->autoRender = FALSE;
+        $asignaciones = $this->Asignacione->find('all');// if si falla
+        $EXEC = TRUE;
+        $r = compact('EXEC', 'asignaciones');
+        echo json_encode($r);
     }
 
     public function asignar() {
