@@ -27,7 +27,7 @@
  */
 Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'inicio'));
 
-Router::parseExtensions('json');
+Router::parseExtensions('json','xml');
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
  */

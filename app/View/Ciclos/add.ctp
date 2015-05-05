@@ -1,7 +1,7 @@
 <div class="ciclos form">
     <?php echo $this->Form->create('Ciclo'); ?>
     <fieldset>
-        <legend><?php echo __('Nuevo Ciclo'); ?></legend>
+        <legend><?php echo __('Inicializar Ciclo'); ?></legend>
         <?php
         echo $this->Form->select('tipo', $tipos, ['label' => 'Tipo', 'empty' => 'Seleccione Tipo']);
         echo $this->Form->input('anio', ['label' => 'Año']);

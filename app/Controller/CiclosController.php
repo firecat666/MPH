@@ -51,6 +51,7 @@ class CiclosController extends AppController {
                 $this->Ciclo->cambiarEstados();
             }
             if ($this->Ciclo->save($this->request->data)) {
+                $this->Ciclo->Asignacione->initCiclo($this->Ciclo->id);//agregar validaci'on por si falla
                 $this->Session->setFlash(__('The ciclo has been saved.'));
                 return $this->redirect(array('action' => 'index'));
             } else {

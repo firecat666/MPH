@@ -95,4 +95,21 @@ class CarrerasController extends AppController {
         return $this->redirect(array('action' => 'index'));
     }
 
+    public function lista() {
+        $this->autoRender = false;
+        if ($this->request->is('ajax')) {
+            $facultad = $this->request->data('facultad');
+            $options = ['conditions' => ['Carrera.facultade_id' => $facultad]];
+            if ($lista = $this->Carrera->find('list', $options)) {
+                $EXEC = TRUE;
+            } else {
+                $EXEC = FALSE;
+            }
+            $resp = compact('EXEC', 'lista');
+            $this->response->type('json');
+            $json = json_encode($resp);
+            $this->response->body($json);
+        }
+    }
+
 }

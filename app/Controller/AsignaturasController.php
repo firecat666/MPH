@@ -95,4 +95,22 @@ class AsignaturasController extends AppController {
         return $this->redirect(array('action' => 'index'));
     }
 
+    public function lista() {
+        $this->autoRender = false;
+        if ($this->request->is('ajax')) {
+            $carrera = $this->request->data['carrera'];
+            $this->Asignatura->recursive = -1;
+            $options = ['conditions' => ['Asignatura.carrera_id' => $carrera]];
+            if ($asignaturas = $this->Asignatura->find('all', $options)) {
+                $EXEC = true;
+            } else {
+                $EXEC = false;
+            }
+            $resp = compact('EXEC', 'asignaturas');
+            $this->response->type('json');
+            $json = json_encode($resp);
+            $this->response->body($json);
+        }
+    }
+
 }

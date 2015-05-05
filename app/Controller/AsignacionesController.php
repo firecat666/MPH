@@ -19,10 +19,8 @@ class AsignacionesController extends AppController {
     public $components = array('Paginator', 'Session', 'RequestHandler');
 
     public function asignacion() {
-
         $dias = $this->Asignacione->Dia->find('list');
         $this->set(compact('dias'));
-
         $this->Asignacione->Horario->recursive = 0;
         $horarios = $this->Asignacione->Horario->find('all');
         $arrayHorarios = [];
@@ -30,21 +28,67 @@ class AsignacionesController extends AppController {
             $arrayHorarios[$horario['Horario']['id']] = $horario['Horario']['hora'] . ' ' . $horario['Horario']['periodo'];
         }
         $this->set('horarios', $arrayHorarios);
-
         $capacidades = [5 => 5, 20 => 20, 40 => 40];
         $this->set(compact('capacidades'));
     }
 
     public function disponibles() {
-        $this->autoRender = FALSE;
-        $asignaciones = $this->Asignacione->find('all');// if si falla
+        $this->autoRender = false;
+
+        $capacidad = $this->request->data['capacidad'];
+        $dia = $this->request->data['dia'];
+        $horario = $this->request->data['horario'];
+
+        $options = ['conditions' => []];
+
+        if ($capacidad != '') {
+            $options['conditions']['Aula.capacidad'] = $capacidad;
+        }
+        if ($dia != '') {
+            $options['conditions']['Dia.id'] = $dia;
+        }
+        if ($horario != '') {
+            $options['conditions']['Horario.id'] = $horario;
+        }
+        $asignaciones = $this->Asignacione->find('all', $options); // if si falla
         $EXEC = TRUE;
         $r = compact('EXEC', 'asignaciones');
-        echo json_encode($r);
+        $this->response->type('json');
+        $json = json_encode($r);
+        $this->response->body($json);
     }
 
-    public function asignar() {
-        
+    public function asignar($id = null) {
+        if (!$this->Asignacione->exists($id)) {
+            throw new NotFoundException(__('Invalid asignacione'));
+        }
+
+        if ($this->request->is(array('post', 'put'))) {
+            if ($this->Asignacione->save($this->request->data)) {
+                $this->redirect(['action' => 'asignacion']);
+            } else {
+                
+            }
+        } else {
+            $options = array('conditions' => array('Asignacione.' . $this->Asignacione->primaryKey => $id));
+            $this->set('asignacione', $this->Asignacione->find('first', $options));
+            //$this->request->data = $this->Asignacione->find('first', $options);
+        }
+        $this->loadModel('Facultade');
+
+        $facultades = $this->Facultade->find('list');
+        $catedraticos = $this->Asignacione->Catedratico->find('list');
+        $tipos = [
+            1 => 'Impar',
+            2 => 'Interciclo',
+            3 => 'Par'
+        ];
+        $estados = [
+            0 => 'Inactivo',
+            1 => 'Disponible'
+        ];
+        $secciones = [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5];
+        $this->set(compact('catedraticos', 'tipos', 'estados', 'facultades', 'secciones'));
     }
 
     /**
@@ -74,7 +118,7 @@ class AsignacionesController extends AppController {
         }
         $ciclos = $this->Asignacione->Ciclo->find('list');
         $aulas = $this->Asignacione->Aula->find('list');
-        $dias = $this->Asignacione->Dium->find('list');
+        $dias = $this->Asignacione->Dia->find('list');
         $horarios = $this->Asignacione->Horario->find('list');
         $asignaturas = $this->Asignacione->Asignatura->find('list');
         $catedraticos = $this->Asignacione->Catedratico->find('list');
@@ -105,7 +149,7 @@ class AsignacionesController extends AppController {
         }
         $ciclos = $this->Asignacione->Ciclo->find('list');
         $aulas = $this->Asignacione->Aula->find('list');
-        $dias = $this->Asignacione->Dium->find('list');
+        $dias = $this->Asignacione->Dia->find('list');
         $horarios = $this->Asignacione->Horario->find('list');
         $asignaturas = $this->Asignacione->Asignatura->find('list');
         $catedraticos = $this->Asignacione->Catedratico->find('list');
