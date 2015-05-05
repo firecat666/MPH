@@ -50,6 +50,7 @@ class AsignacionesController extends AppController {
         if ($horario != '') {
             $options['conditions']['Horario.id'] = $horario;
         }
+        //$options['conditions']['Asignacione.ocupado'] = 0; //Por Verificar,
         $asignaciones = $this->Asignacione->find('all', $options); // if si falla
         $EXEC = TRUE;
         $r = compact('EXEC', 'asignaciones');
@@ -64,6 +65,7 @@ class AsignacionesController extends AppController {
         }
 
         if ($this->request->is(array('post', 'put'))) {
+            $this->request->data['Asignacione']['ocupado'] = 1;
             if ($this->Asignacione->save($this->request->data)) {
                 $this->redirect(['action' => 'asignacion']);
             } else {
