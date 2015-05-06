@@ -37,10 +37,10 @@ class AulasController extends AppController {
         if ($this->request->is('post')) {
             $this->Aula->create();
             if ($this->Aula->save($this->request->data)) {
-                $this->Session->setFlash(__('The aula has been saved.'));
+                $this->Session->setFlash(__('¡Se ha guardado el Aula con éxito!'), 'default', ['class' => 'message success']);
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The aula could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('¡Ha ocurrido un error al guardar los datos! por favor intente de nuevo.'));
             }
         }
         $tipoaulas = $this->Aula->Tipoaula->find('list');
@@ -60,10 +60,10 @@ class AulasController extends AppController {
         }
         if ($this->request->is(array('post', 'put'))) {
             if ($this->Aula->save($this->request->data)) {
-                $this->Session->setFlash(__('The aula has been saved.'));
+                $this->Session->setFlash(__('¡Se ha guardado el Aula con éxito!'), 'default', ['class' => 'message success']);
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The aula could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('¡Ha ocurrido un error al guardar los datos! por favor intente de nuevo.'));
             }
         } else {
             $this->Aula->recursive = -1;
@@ -88,9 +88,9 @@ class AulasController extends AppController {
         }
         $this->request->allowMethod('post', 'delete');
         if ($this->Aula->delete()) {
-            $this->Session->setFlash(__('The aula has been deleted.'));
+            $this->Session->setFlash(__('¡Se ha borrado el Aula con éxito!'), 'default', ['class' => 'message success']);
         } else {
-            $this->Session->setFlash(__('The aula could not be deleted. Please, try again.'));
+            $this->Session->setFlash(__('¡Ha ocurrido un error al borrar los datos! por favor intente de nuevo'));
         }
         return $this->redirect(array('action' => 'index'));
     }

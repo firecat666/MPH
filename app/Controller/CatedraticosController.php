@@ -37,10 +37,10 @@ class CatedraticosController extends AppController {
         if ($this->request->is('post')) {
             $this->Catedratico->create();
             if ($this->Catedratico->save($this->request->data)) {
-                $this->Session->setFlash(__('The catedratico has been saved.'));
+                $this->Session->setFlash(__('¡Se ha guardado el Catedratico con éxito!'), 'default', ['class' => 'message success']);
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The catedratico could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('¡Ha ocurrido un error al guardar los datos! por favor intente de nuevo.'));
             }
         }
     }
@@ -58,10 +58,10 @@ class CatedraticosController extends AppController {
         }
         if ($this->request->is(array('post', 'put'))) {
             if ($this->Catedratico->save($this->request->data)) {
-                $this->Session->setFlash(__('The catedratico has been saved.'));
+                $this->Session->setFlash(__('¡Se ha guardado el Catedratico con éxito!'), 'default', ['class' => 'message success']);
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The catedratico could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('¡Ha ocurrido un error al guardar los datos! por favor intente de nuevo.'));
             }
         } else {
             $this->Catedratico->recursive = 0;
@@ -84,9 +84,9 @@ class CatedraticosController extends AppController {
         }
         $this->request->allowMethod('post', 'delete');
         if ($this->Catedratico->delete()) {
-            $this->Session->setFlash(__('The catedratico has been deleted.'));
+            $this->Session->setFlash(__('¡Se ha borrado el Catedratico con éxito!'), 'default', ['class' => 'message success']);
         } else {
-            $this->Session->setFlash(__('The catedratico could not be deleted. Please, try again.'));
+            $this->Session->setFlash(__('¡Ha ocurrido un error al borrar los datos! por favor intente de nuevo'));
         }
         return $this->redirect(array('action' => 'index'));
     }

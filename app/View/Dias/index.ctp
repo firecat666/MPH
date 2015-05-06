@@ -19,7 +19,7 @@
                     <td><?php echo h($estados[$dia['Dia']['estado']]); ?>&nbsp;</td>
                     <td class="actions">
                         <?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $dia['Dia']['id'])); ?>
-                        <?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $dia['Dia']['id']), array(), __('¿Esta seguro que desea borrar %s?', $dia['Dia']['nombre'])); ?>
+                        <?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $dia['Dia']['id']), array(), __('¿Está seguro que desea borrar %s?', $dia['Dia']['nombre'])); ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

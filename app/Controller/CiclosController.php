@@ -52,10 +52,10 @@ class CiclosController extends AppController {
             }
             if ($this->Ciclo->save($this->request->data)) {
                 $this->Ciclo->Asignacione->initCiclo($this->Ciclo->id);//agregar validaci'on por si falla
-                $this->Session->setFlash(__('The ciclo has been saved.'));
+                $this->Session->setFlash(__('¡Se ha iniciado el Ciclo con éxito!'), 'default', ['class' => 'message success']);
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The ciclo could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('¡Ha ocurrido un error al guardar los datos! por favor intente de nuevo.'));
             }
         }
         $tipos = [
@@ -82,10 +82,10 @@ class CiclosController extends AppController {
                 $this->Ciclo->cambiarEstados();
             }
             if ($this->Ciclo->save($this->request->data)) {
-                $this->Session->setFlash(__('The ciclo has been saved.'));
+                $this->Session->setFlash(__('¡Se ha guardado el Ciclo con éxito!'), 'default', ['class' => 'message success']);
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The ciclo could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('¡Ha ocurrido un error al guardar los datos! por favor intente de nuevo.'));
             }
         } else {
             $this->Ciclo->recursive = 0;
@@ -114,9 +114,9 @@ class CiclosController extends AppController {
         }
         $this->request->allowMethod('post', 'delete');
         if ($this->Ciclo->delete()) {
-            $this->Session->setFlash(__('The ciclo has been deleted.'));
+            $this->Session->setFlash(__('¡Se ha borrado el Ciclo con éxito!'), 'default', ['class' => 'message success']);
         } else {
-            $this->Session->setFlash(__('The ciclo could not be deleted. Please, try again.'));
+            $this->Session->setFlash(__('¡Ha ocurrido un error al borrar los datos! por favor intente de nuevo'));
         }
         return $this->redirect(array('action' => 'index'));
     }

@@ -19,7 +19,7 @@ echo $this->Html->script('asignacion', array('block' => 'mphjs'));
             <th>Capacidad</th>
             <th>Acciones</th>
         </tr>
-        <tr style="display: none"><td></td><td></td><td></td><td></td><td></td><td id="acciones"><?php echo $this->Html->link('Asignar', ['action' => 'asignar'], ['class' => 'asignar']) ?><?php echo $this->Html->link('Modificar', ['action' => 'editar'], ['class' => 'editar']) ?><?php echo $this->Html->link('Borrar', ['action' => 'borrar'], ['class' => 'borrar']) ?></td></tr>
+        <tr style="display: none"><td></td><td></td><td></td><td></td><td></td><td id="acciones"><?php echo $this->Html->link('Asignar', ['action' => 'asignar'], ['class' => 'asignar']) ?><?php echo $this->Html->link('Modificar', ['action' => 'editar'], ['class' => 'editar']) ?><?php echo $this->Html->link('Liberar', ['action' => 'borrar'], ['class' => 'borrar']) ?></td></tr>
     </thead>
     <tbody>
 

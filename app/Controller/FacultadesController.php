@@ -27,21 +27,6 @@ class FacultadesController extends AppController {
 	}
 
 /**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function view($id = null) {
-		if (!$this->Facultade->exists($id)) {
-			throw new NotFoundException(__('Invalid facultade'));
-		}
-		$options = array('conditions' => array('Facultade.' . $this->Facultade->primaryKey => $id));
-		$this->set('facultade', $this->Facultade->find('first', $options));
-	}
-
-/**
  * add method
  *
  * @return void
@@ -50,10 +35,10 @@ class FacultadesController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Facultade->create();
 			if ($this->Facultade->save($this->request->data)) {
-				$this->Session->setFlash(__('The facultade has been saved.'));
+				$this->Session->setFlash(__('¡Se ha guardado la Facultad con éxito!'), 'default', ['class' => 'message success']);
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The facultade could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('¡Ha ocurrido un error al guardar los datos! por favor intente de nuevo.'));
 			}
 		}
 	}
@@ -71,10 +56,10 @@ class FacultadesController extends AppController {
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Facultade->save($this->request->data)) {
-				$this->Session->setFlash(__('The facultade has been saved.'));
+				$this->Session->setFlash(__('¡Se ha guardado la Facultad con éxito!'), 'default', ['class' => 'message success']);
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The facultade could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('¡Ha ocurrido un error al guardar los datos! por favor intente de nuevo.'));
 			}
 		} else {
 			$options = array('conditions' => array('Facultade.' . $this->Facultade->primaryKey => $id));
@@ -96,9 +81,9 @@ class FacultadesController extends AppController {
 		}
 		$this->request->allowMethod('post', 'delete');
 		if ($this->Facultade->delete()) {
-			$this->Session->setFlash(__('The facultade has been deleted.'));
+			$this->Session->setFlash(__('¡Se ha borrado la Facultad con éxito!'), 'default', ['class' => 'message success']);
 		} else {
-			$this->Session->setFlash(__('The facultade could not be deleted. Please, try again.'));
+			$this->Session->setFlash(__('¡Ha ocurrido un error al borrar los datos! por favor intente de nuevo'));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}

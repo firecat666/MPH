@@ -19,7 +19,7 @@
                     <td><?php echo h($estados[$horario['Horario']['estado']]); ?>&nbsp;</td>
                     <td class="actions">
                         <?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $horario['Horario']['id'])); ?>
-                        <?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $horario['Horario']['id']), array(), __('¿Esta seguro que desea borrar el horario de %s %s?', [$horario['Horario']['hora'], $horario['Horario']['periodo']])); ?>
+                        <?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $horario['Horario']['id']), array(), __('¿Está seguro que desea borrar el horario de %s %s?', [$horario['Horario']['hora'], $horario['Horario']['periodo']])); ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

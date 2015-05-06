@@ -17,7 +17,7 @@
     <h3><?php echo __('Acciones'); ?></h3>
     <ul>
 
-        <li><?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $this->Form->value('Aula.id')), array(), __('¿Esta seguro que desea borrar %s?', $this->Form->value('Aula.nombre'))); ?></li>
+        <li><?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $this->Form->value('Aula.id')), array(), __('¿Está seguro que desea borrar %s?', $this->Form->value('Aula.nombre'))); ?></li>
         <li><?php echo $this->Html->link(__('Lista Aulas'), array('action' => 'index')); ?></li>
         <li><?php echo $this->Html->link(__('Lista Tipo de Aulas'), array('controller' => 'tipoaulas', 'action' => 'index')); ?> </li>
     </ul>

@@ -15,7 +15,7 @@
 	<h3><?php echo __('Acciones'); ?></h3>
 	<ul>
 
-		<li><?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $this->Form->value('Dia.id')), array(), __('¿Esta seguro que desea borrar %s?', $this->Form->value('Dia.nombre'))); ?></li>
+		<li><?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $this->Form->value('Dia.id')), array(), __('¿Está seguro que desea borrar %s?', $this->Form->value('Dia.nombre'))); ?></li>
 		<li><?php echo $this->Html->link(__('Lista Dias'), array('action' => 'index')); ?></li>
 	</ul>
 </div>

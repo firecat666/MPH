@@ -75,7 +75,7 @@ class AsignacionesController extends AppController {
                 $this->request->data['Asignacione']['seccion'] = $this->request->data['Materia'][0]['seccion'];
                 $this->request->data['Asignacione']['asignatura_id'] = $this->request->data['Materia'][0]['asignatura'];
                 if ($this->Asignacione->save($this->request->data)) {
-                    $this->Session->setFlash(__('Se ha guardado exitosamente el registro.'));
+                    $this->Session->setFlash(__('¡Se ha guardado la Asignación con éxito!'), 'default', ['class' => 'message success']);
                     $this->redirect(['action' => 'asignacion']);
                 } else {
                     $this->Session->setFlash(__('¡Ha ocurrido un error al guardar los datos! por favor intente de nuevo.'));
@@ -113,7 +113,7 @@ class AsignacionesController extends AppController {
                     $this->Session->setFlash(__('¡Ha ocurrido un error al guardar los datos! por favor intente de nuevo.'));
                     $this->redirect(['action' => 'asignacion']);
                 } else {
-                    $this->Session->setFlash(__('Se ha guardado exitosamente el registro.'));
+                    $this->Session->setFlash(__('¡Se ha guardado la Asignación con éxito!'), 'default', ['class' => 'message success']);
                     $this->redirect(['action' => 'asignacion']);
                 }
             }
@@ -215,7 +215,7 @@ class AsignacionesController extends AppController {
                 $this->Session->setFlash(__('¡Ha ocurrido un error al guardar los datos! por favor intente de nuevo.'));
                 $this->redirect(['action' => 'asignacion']);
             } else {
-                $this->Session->setFlash(__('Se ha guardado exitosamente el registro.'));
+                $this->Session->setFlash(__('¡Se ha guardado la Asignación con éxito!'), 'default', ['class' => 'message success']);
                 $this->redirect(['action' => 'asignacion']);
             }
         } else {
@@ -261,6 +261,55 @@ class AsignacionesController extends AppController {
         $this->set(compact('catedraticos', 'tipos', 'estados', 'facultades', 'secciones'));
     }
 
+    public function borrar() {
+        $this->autoRender = false;
+        //var_dump($this->request->data);
+        $options = [
+            'conditions' => [
+                'Asignacione.ciclo_id' => $this->request->data['ciclo'],
+                'Asignacione.aula_id' => $this->request->data['aula'],
+                'Asignacione.dia_id' => $this->request->data['dia'],
+                'Asignacione.horario_id' => $this->request->data['horario']
+            ],
+            'fields' => '*',
+            'recursive' => -1
+        ];
+        $asignaciones = $this->Asignacione->find('all', $options);
+        $first = 0;
+        $err = 0;
+        foreach ($asignaciones as $asignacion) {
+            if ($first == 0) {
+                $this->Asignacione->create();
+                $asignacion['Asignacione']['ocupado'] = 0;
+                $asignacion['Asignacione']['seccion'] = 0;
+                if (!$this->Asignacione->save($asignacion)) {
+                    $err++;
+                }
+                if (!$this->Asignacione->saveField('asignatura_id', null)) {
+                    $err++;
+                }
+                if (!$this->Asignacione->saveField('catedratico_id', null)) {
+                    $err++;
+                }
+            } else {
+                if (!$this->Asignacione->delete($asignacion['Asignacione']['id'])) {
+                    $err++;
+                }
+            }
+            $first++;
+        }
+        //var_dump($asignaciones);
+        if ($err > 0) {
+            $EXEC = false;
+        } else {
+            $EXEC = TRUE;
+        }
+        $r = compact('EXEC');
+        $this->response->type('json');
+        $json = json_encode($r);
+        $this->response->body($json);
+    }
+
     /**
      * index method
      *
@@ -280,10 +329,10 @@ class AsignacionesController extends AppController {
         if ($this->request->is('post')) {
             $this->Asignacione->create();
             if ($this->Asignacione->save($this->request->data)) {
-                $this->Session->setFlash(__('The asignacione has been saved.'));
+                $this->Session->setFlash(__('¡Se ha guardado la Asignación con éxito!'), 'default', ['class' => 'message success']);
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The asignacione could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('¡Ha ocurrido un error al guardar los datos! por favor intente de nuevo.'));
             }
         }
         $ciclos = $this->Asignacione->Ciclo->find('list');
@@ -308,10 +357,10 @@ class AsignacionesController extends AppController {
         }
         if ($this->request->is(array('post', 'put'))) {
             if ($this->Asignacione->save($this->request->data)) {
-                $this->Session->setFlash(__('The asignacione has been saved.'));
+                $this->Session->setFlash(__('¡Se ha guardado la Asignación con éxito!'), 'default', ['class' => 'message success']);
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The asignacione could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('¡Ha ocurrido un error al guardar los datos! por favor intente de nuevo.'));
             }
         } else {
             $options = array('conditions' => array('Asignacione.' . $this->Asignacione->primaryKey => $id));
@@ -340,9 +389,9 @@ class AsignacionesController extends AppController {
         }
         $this->request->allowMethod('post', 'delete');
         if ($this->Asignacione->delete()) {
-            $this->Session->setFlash(__('The asignacione has been deleted.'));
-        } else {
-            $this->Session->setFlash(__('The asignacione could not be deleted. Please, try again.'));
+            $this->Session->setFlash(__('¡Se ha borrado la Asignación con éxito!'), 'default', ['class' => 'message success']); //
+        } else {//.
+            $this->Session->setFlash(__('¡Ha ocurrido un error al borrar los datos! por favor intente de nuevo'));
         }
         return $this->redirect(array('action' => 'index'));
     }

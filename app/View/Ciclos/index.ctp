@@ -19,7 +19,7 @@
                     <td><?php echo h($estados[$ciclo['Ciclo']['estado']]); ?>&nbsp;</td>
                     <td class="actions">
                         <?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $ciclo['Ciclo']['id'])); ?>
-                        <?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $ciclo['Ciclo']['id']), array(), __('¿Esta seguro que desea borrar Ciclo %s %s?', [$tipos[$ciclo['Ciclo']['tipo']], $ciclo['Ciclo']['anio']])); ?>
+                        <?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $ciclo['Ciclo']['id']), array(), __('¿Está seguro que desea borrar Ciclo %s %s?', [$tipos[$ciclo['Ciclo']['tipo']], $ciclo['Ciclo']['anio']])); ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

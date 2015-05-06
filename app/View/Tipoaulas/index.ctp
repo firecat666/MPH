@@ -17,7 +17,7 @@
                     <td><?php echo h($estados[$tipoaula['Tipoaula']['estado']]); ?>&nbsp;</td>
                     <td class="actions">
                         <?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $tipoaula['Tipoaula']['id'])); ?>
-                        <?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $tipoaula['Tipoaula']['id']), array(), __('¿Esta seguro que desea borrar %s?', $tipoaula['Tipoaula']['tipo'])); ?>
+                        <?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $tipoaula['Tipoaula']['id']), array(), __('¿Está seguro que desea borrar %s?', $tipoaula['Tipoaula']['tipo'])); ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

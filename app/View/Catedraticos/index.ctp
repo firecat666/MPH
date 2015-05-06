@@ -17,7 +17,7 @@
 		<td><?php echo h($catedratico['Catedratico']['estado']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $catedratico['Catedratico']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $catedratico['Catedratico']['id']), array(), __('¿Esta seguro que desea borrar %s?', $catedratico['Catedratico']['nombre'])); ?>
+			<?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $catedratico['Catedratico']['id']), array(), __('¿Está seguro que desea borrar %s?', $catedratico['Catedratico']['nombre'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

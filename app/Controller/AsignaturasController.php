@@ -37,10 +37,10 @@ class AsignaturasController extends AppController {
         if ($this->request->is('post')) {
             $this->Asignatura->create();
             if ($this->Asignatura->save($this->request->data)) {
-                $this->Session->setFlash(__('The asignatura has been saved.'));
+                $this->Session->setFlash(__('¡Se ha guardado la Asignatura con éxito!'), 'default', ['class' => 'message success']);
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The asignatura could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('¡Ha ocurrido un error al guardar los datos! por favor intente de nuevo.'));
             }
         }
         $carreras = $this->Asignatura->Carrera->find('list');
@@ -60,10 +60,10 @@ class AsignaturasController extends AppController {
         }
         if ($this->request->is(array('post', 'put'))) {
             if ($this->Asignatura->save($this->request->data)) {
-                $this->Session->setFlash(__('The asignatura has been saved.'));
+                $this->Session->setFlash(__('¡Se ha guardado la Asignatura con éxito!'), 'default', ['class' => 'message success']);
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The asignatura could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('¡Ha ocurrido un error al guardar los datos! por favor intente de nuevo.'));
             }
         } else {
             $this->Asignatura->recursive = 0;
@@ -88,9 +88,9 @@ class AsignaturasController extends AppController {
         }
         $this->request->allowMethod('post', 'delete');
         if ($this->Asignatura->delete()) {
-            $this->Session->setFlash(__('The asignatura has been deleted.'));
+            $this->Session->setFlash(__('¡Se ha borrado la Asignaturacon éxito!'), 'default', ['class' => 'message success']);
         } else {
-            $this->Session->setFlash(__('The asignatura could not be deleted. Please, try again.'));
+            $this->Session->setFlash(__('¡Ha ocurrido un error al borrar los datos! por favor intente de nuevo'));
         }
         return $this->redirect(array('action' => 'index'));
     }

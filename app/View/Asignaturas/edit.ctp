@@ -17,7 +17,7 @@
 	<h3><?php echo __('Acciones'); ?></h3>
 	<ul>
 
-		<li><?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $this->Form->value('Asignatura.id')), array(), __('¿Esta seguro que desea borrar %s?', $this->Form->value('Asignatura.nombre'))); ?></li>
+		<li><?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $this->Form->value('Asignatura.id')), array(), __('¿Está seguro que desea borrar %s?', $this->Form->value('Asignatura.nombre'))); ?></li>
 		<li><?php echo $this->Html->link(__('Lista Asignaturas'), array('action' => 'index')); ?></li>
 		<li><?php echo $this->Html->link(__('Lista Carreras'), array('controller' => 'carreras', 'action' => 'index')); ?> </li>
 	</ul>

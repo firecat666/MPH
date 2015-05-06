@@ -29,6 +29,32 @@ $(document).ready(function () {
         }
     });
 
+    $('table').delegate('.borrar', 'click', function (e) {
+        e.preventDefault();
+        if ($(this).parent().data('ocupado') == 1) {
+            if (confirm('\u00bfEstá seguro que desea liberar esta asignación?')) {
+                $.ajax({
+                    url: "borrar.json",
+                    dataType: 'json',
+                    type: 'POST',
+                    data: {ciclo: $(this).closest('tr').data('ciclo'), aula: $(this).closest('tr').data('aula'), dia: $(this).closest('tr').data('dia'), horario: $(this).closest('tr').data('horario')},
+                    beforeSend: function (xhr) {
+
+                    },
+                    success: function (data, textStatus, jqXHR) {
+                        if (data.EXEC) {
+                            buscar();
+                        }
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+
+                    }
+                });
+            }
+        }
+    });
+
     function buscar() {
         ajax = $.ajax({
             url: "disponibles.json",
@@ -43,7 +69,7 @@ $(document).ready(function () {
                     $('#tblAsig tbody').html('');
                     for (var id in response.asignaciones) {
                         var estado;
-                        var $row = '<tr data-id="' + response.asignaciones[id].Asignacione.id + '" data-ciclo="'+response.asignaciones[id].Ciclo.id+'" data-aula="'+response.asignaciones[id].Aula.id+'" data-dia="'+response.asignaciones[id].Dia.id+'" data-horario="'+response.asignaciones[id].Horario.id+'">';
+                        var $row = '<tr data-id="' + response.asignaciones[id].Asignacione.id + '" data-ciclo="' + response.asignaciones[id].Ciclo.id + '" data-aula="' + response.asignaciones[id].Aula.id + '" data-dia="' + response.asignaciones[id].Dia.id + '" data-horario="' + response.asignaciones[id].Horario.id + '">';
                         $row += '<td>' + response.asignaciones[id].Aula.nombre + '</td>';
                         $row += '<td>' + response.asignaciones[id].Dia.nombre + '</td>';
                         $row += '<td>' + response.asignaciones[id].Horario.hora + ' ' + response.asignaciones[id].Horario.periodo + '</td>';

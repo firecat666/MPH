@@ -37,10 +37,10 @@ class CarrerasController extends AppController {
         if ($this->request->is('post')) {
             $this->Carrera->create();
             if ($this->Carrera->save($this->request->data)) {
-                $this->Session->setFlash(__('The carrera has been saved.'));
+                $this->Session->setFlash(__('¡Se ha guardado la Carrera con éxito!'), 'default', ['class' => 'message success']);
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The carrera could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('¡Ha ocurrido un error al guardar los datos! por favor intente de nuevo.'));
             }
         }
         //$options = ['fields' => '*', 'recursive' => -1];
@@ -61,10 +61,10 @@ class CarrerasController extends AppController {
         }
         if ($this->request->is(array('post', 'put'))) {
             if ($this->Carrera->save($this->request->data)) {
-                $this->Session->setFlash(__('The carrera has been saved.'));
+                $this->Session->setFlash(__('¡Se ha guardado la Carrera con éxito!'), 'default', ['class' => 'message success']);
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The carrera could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('¡Ha ocurrido un error al guardar los datos! por favor intente de nuevo.'));
             }
         } else {
             $options = array('conditions' => array('Carrera.' . $this->Carrera->primaryKey => $id));
@@ -88,9 +88,9 @@ class CarrerasController extends AppController {
         }
         $this->request->allowMethod('post', 'delete');
         if ($this->Carrera->delete()) {
-            $this->Session->setFlash(__('The carrera has been deleted.'));
+            $this->Session->setFlash(__('¡Se ha borrado la Carrera con éxito!'), 'default', ['class' => 'message success']);
         } else {
-            $this->Session->setFlash(__('The carrera could not be deleted. Please, try again.'));
+            $this->Session->setFlash(__('¡Ha ocurrido un error al borrar los datos! por favor intente de nuevo'));
         }
         return $this->redirect(array('action' => 'index'));
     }

@@ -15,7 +15,7 @@
     <h3><?php echo __('Acciones'); ?></h3>
     <ul>
 
-        <li><?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $this->Form->value('Horario.id')), array(), __('¿Esta seguro que desea borrar el horario de %s %s?', [$this->Form->value('Horario.hora'), $this->Form->value('Horario.periodo')])); ?></li>
+        <li><?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $this->Form->value('Horario.id')), array(), __('¿Está seguro que desea borrar el horario de %s %s?', [$this->Form->value('Horario.hora'), $this->Form->value('Horario.periodo')])); ?></li>
         <li><?php echo $this->Html->link(__('Lista Horarios'), array('action' => 'index')); ?></li>
     </ul>
 </div>

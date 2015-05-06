@@ -23,7 +23,7 @@
 		</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $carrera['Carrera']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $carrera['Carrera']['id']), array(), __('¿Esta seguro que desea borrar %s?', $carrera['Carrera']['nombre'])); ?>
+			<?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $carrera['Carrera']['id']), array(), __('¿Está seguro que desea borrar %s?', $carrera['Carrera']['nombre'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

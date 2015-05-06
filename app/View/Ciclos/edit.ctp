@@ -15,7 +15,7 @@
     <h3><?php echo __('Acciones'); ?></h3>
     <ul>
 
-        <li><?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $this->Form->value('Ciclo.id')), array(), __('¿Esta seguro que desea borrar Ciclo %s %s?', [$tipos[$this->Form->value('Ciclo.tipo')], $this->Form->value('Ciclo.anio')])); ?></li>
+        <li><?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $this->Form->value('Ciclo.id')), array(), __('¿Está seguro que desea borrar Ciclo %s %s?', [$tipos[$this->Form->value('Ciclo.tipo')], $this->Form->value('Ciclo.anio')])); ?></li>
         <li><?php echo $this->Html->link(__('Lista Ciclos'), array('action' => 'index')); ?></li>
     </ul>
 </div>

@@ -25,7 +25,7 @@
                     </td>
                     <td class="actions">
                         <?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $aula['Aula']['id'])); ?>
-                        <?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $aula['Aula']['id']), array(), __('¿Esta seguro que desea borrar %s?', $aula['Aula']['nombre'])); ?>
+                        <?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $aula['Aula']['id']), array(), __('¿Está seguro que desea borrar %s?', $aula['Aula']['nombre'])); ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

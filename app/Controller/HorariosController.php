@@ -42,10 +42,10 @@ class HorariosController extends AppController {
         if ($this->request->is('post')) {
             $this->Horario->create();
             if ($this->Horario->save($this->request->data)) {
-                $this->Session->setFlash(__('The horario has been saved.'));
+                $this->Session->setFlash(__('¡Se ha guardado el Horario con éxito!'), 'default', ['class' => 'message success']);
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The horario could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('¡Ha ocurrido un error al guardar los datos! por favor intente de nuevo.'));
             }
         } else {
             $periodos = [
@@ -69,10 +69,10 @@ class HorariosController extends AppController {
         }
         if ($this->request->is(array('post', 'put'))) {
             if ($this->Horario->save($this->request->data)) {
-                $this->Session->setFlash(__('The horario has been saved.'));
+                $this->Session->setFlash(__('¡Se ha guardado el Horario con éxito!'), 'default', ['class' => 'message success']);
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The horario could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('¡Ha ocurrido un error al guardar los datos! por favor intente de nuevo.'));
             }
         } else {
             $this->Horario->recursive = 0;
@@ -100,9 +100,9 @@ class HorariosController extends AppController {
         }
         $this->request->allowMethod('post', 'delete');
         if ($this->Horario->delete()) {
-            $this->Session->setFlash(__('The horario has been deleted.'));
+            $this->Session->setFlash(__('¡Se ha borrado el Horario con éxito!'), 'default', ['class' => 'message success']);
         } else {
-            $this->Session->setFlash(__('The horario could not be deleted. Please, try again.'));
+            $this->Session->setFlash(__('¡Ha ocurrido un error al borrar los datos! por favor intente de nuevo'));
         }
         return $this->redirect(array('action' => 'index'));
     }
