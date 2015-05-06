@@ -10,17 +10,17 @@ echo $this->Html->script('asignar', array('block' => 'mphjs'));
             <td><strong>Horario: </strong><?php echo $asignacione['Horario']['hora']; ?> <?php echo $asignacione['Horario']['periodo']; ?></td>
             <td><strong>Año: </strong><?php echo $asignacione['Ciclo']['anio']; ?></td>
             <td><strong>Ciclo: </strong><?php echo $tipos[$asignacione['Ciclo']['tipo']]; ?></td>
-            <td><strong>Estado: </strong><?php echo $estados[$asignacione['Asignacione']['estado']]; ?></td>
+            <td><strong>Estado: </strong><?php echo $estados[$asignacione['Asignacione']['ocupado']]; ?></td>
         </tr>
     </table>
 </fieldset>
 <?php
 echo $this->Form->create('Asignacione');
 echo $this->Form->input('id', ['value' => $asignacione['Asignacione']['id']]);
-echo $this->Form->input('ciclo_id', ['type' => 'hidden','value'=>$asignacione['Asignacione']['ciclo_id']]);
-echo $this->Form->input('aula_id', ['type' => 'hidden','value'=>$asignacione['Asignacione']['aula_id']]);
-echo $this->Form->input('dia_id', ['type' => 'hidden','value'=>$asignacione['Asignacione']['dia_id']]);
-echo $this->Form->input('horario_id', ['type' => 'hidden','value'=>$asignacione['Asignacione']['horario_id']]);
+echo $this->Form->input('ciclo_id', ['type' => 'hidden', 'value' => $asignacione['Asignacione']['ciclo_id']]);
+echo $this->Form->input('aula_id', ['type' => 'hidden', 'value' => $asignacione['Asignacione']['aula_id']]);
+echo $this->Form->input('dia_id', ['type' => 'hidden', 'value' => $asignacione['Asignacione']['dia_id']]);
+echo $this->Form->input('horario_id', ['type' => 'hidden', 'value' => $asignacione['Asignacione']['horario_id']]);
 ?>
 <table id="tabla-asignar">
     <thead>
