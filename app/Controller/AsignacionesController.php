@@ -108,13 +108,13 @@ class AsignacionesController extends AppController {
                     if (!$this->Asignacione->save($datos)) {
                         $err++;
                     }
-                    if ($err > 0) {
-                        $this->Session->setFlash(__('¡Ha ocurrido un error al guardar los datos! por favor intente de nuevo.'));
-                        $this->redirect(['action' => 'asignacion']);
-                    } else {
-                        $this->Session->setFlash(__('Se ha guardado exitosamente el registro.'));
-                        $this->redirect(['action' => 'asignacion']);
-                    }
+                }
+                if ($err > 0) {
+                    $this->Session->setFlash(__('¡Ha ocurrido un error al guardar los datos! por favor intente de nuevo.'));
+                    $this->redirect(['action' => 'asignacion']);
+                } else {
+                    $this->Session->setFlash(__('Se ha guardado exitosamente el registro.'));
+                    $this->redirect(['action' => 'asignacion']);
                 }
             }
         } else {
