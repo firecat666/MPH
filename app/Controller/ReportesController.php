@@ -12,9 +12,25 @@ App::uses('AppController', 'Controller');
  * CakePHP ReporteController
  * @author Amaury
  */
-class ReporteController extends AppController {
+class ReportesController extends AppController {
 
     public function index($id) {
+        
+    }
+
+    public function aulas() {
+        
+    }
+
+    public function verticales() {
+        
+    }
+
+    public function escuela() {
+        
+    }
+
+    public function globales() {
         
     }
 
