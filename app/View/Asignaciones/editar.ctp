@@ -17,10 +17,10 @@ echo $this->Html->script('asignar', array('block' => 'mphjs'));
 <?php
 echo $this->Form->create('Asignacione');
 echo $this->Form->input('id', ['value' => $asignacione['Asignacione']['id']]);
-echo $this->Form->input('ciclo_id', ['type' => 'hidden','value'=>$asignacione['Asignacione']['ciclo_id']]);
-echo $this->Form->input('aula_id', ['type' => 'hidden','value'=>$asignacione['Asignacione']['aula_id']]);
-echo $this->Form->input('dia_id', ['type' => 'hidden','value'=>$asignacione['Asignacione']['dia_id']]);
-echo $this->Form->input('horario_id', ['type' => 'hidden','value'=>$asignacione['Asignacione']['horario_id']]);
+echo $this->Form->input('ciclo_id', ['type' => 'hidden', 'value' => $asignacione['Asignacione']['ciclo_id']]);
+echo $this->Form->input('aula_id', ['type' => 'hidden', 'value' => $asignacione['Asignacione']['aula_id']]);
+echo $this->Form->input('dia_id', ['type' => 'hidden', 'value' => $asignacione['Asignacione']['dia_id']]);
+echo $this->Form->input('horario_id', ['type' => 'hidden', 'value' => $asignacione['Asignacione']['horario_id']]);
 ?>
 <table id="tabla-asignar">
     <thead>
@@ -42,9 +42,11 @@ echo $this->Form->input('horario_id', ['type' => 'hidden','value'=>$asignacione[
         </tr>
     </tbody>
     <tfoot id="asignaciones">
+        <?php
+        ?>
     </tfoot>
 </table>
 <?php
 echo $this->Form->input('catedratico_id', ['empty' => 'Seleccione Catedratico', 'div' => false, 'label' => false]);
-echo $this->Form->end('Asignar');
+echo $this->Form->end('Actualizar');
 ?>

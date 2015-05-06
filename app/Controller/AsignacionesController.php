@@ -50,7 +50,10 @@ class AsignacionesController extends AppController {
         if ($horario != '') {
             $options['conditions']['Horario.id'] = $horario;
         }
-        //$options['conditions']['Asignacione.ocupado'] = 0; //Por Verificar,
+        $options['conditions']['Asignacione.estado'] = 1;
+        //falta ciclo actual
+        $ciclo = $this->Asignacione->Ciclo->actual();
+        $options['conditions']['Asignacione.ciclo_id'] = $ciclo['Ciclo']['id'];
         $asignaciones = $this->Asignacione->find('all', $options); // if si falla
         $EXEC = TRUE;
         $r = compact('EXEC', 'asignaciones');
@@ -65,12 +68,80 @@ class AsignacionesController extends AppController {
         }
 
         if ($this->request->is(array('post', 'put'))) {
-            $this->request->data['Asignacione']['ocupado'] = 1;
-            if ($this->Asignacione->save($this->request->data)) {
-                $this->redirect(['action' => 'asignacion']);
-            } else {
-                
+            //var_dump($this->request->data);
+            $contAsig = count($this->request->data['Materia']); //Verifica si hay materia homonimas
+            if ($contAsig == 1) {
+                $this->request->data['Asignacione']['ocupado'] = 1;
+                $this->request->data['Asignacione']['seccion'] = $this->request->data['Materia'][0]['seccion'];
+                $this->request->data['Asignacione']['asignatura_id'] = $this->request->data['Materia'][0]['asignatura'];
+                if ($this->Asignacione->save($this->request->data)) {
+                    $this->Session->setFlash(__('Se ha guardado exitosamente el registro.'));
+                    $this->redirect(['action' => 'asignacion']);
+                } else {
+                    $this->Session->setFlash(__('¡Ha ocurrido un error al guardar los datos! por favor intente de nuevo.'));
+                    $this->redirect(['action' => 'asignacion']);
+                }
+            } else {// si se seleccionaron materias homonimas
+                $datos = [];
+                $bandera = 0; // 0 para identificar el primer registro
+                $err = 0;
+                foreach ($this->request->data['Materia'] as $materia) {
+                    $datos = [];
+                    if ($bandera == 0) {
+                        $datos['Asignacione']['id'] = $this->request->data['Asignacione']['id'];
+                        $datos['Asignacione']['estado'] = 1;
+                        $datos['Asignacione']['ocupado'] = 1;
+                    } else {
+                        $this->Asignacione->create();
+                        $datos['Asignacione']['estado'] = 0;
+                        $datos['Asignacione']['ocupado'] = 1;
+                    }
+                    $datos['Asignacione']['ciclo_id'] = $this->request->data['Asignacione']['ciclo_id'];
+                    $datos['Asignacione']['aula_id'] = $this->request->data['Asignacione']['aula_id'];
+                    $datos['Asignacione']['dia_id'] = $this->request->data['Asignacione']['dia_id'];
+                    $datos['Asignacione']['horario_id'] = $this->request->data['Asignacione']['horario_id'];
+                    $datos['Asignacione']['seccion'] = $materia['seccion'];
+                    $datos['Asignacione']['asignatura_id'] = $materia['asignatura'];
+                    $datos['Asignacione']['catedratico_id'] = $this->request->data['Asignacione']['catedratico_id'];
+
+                    $bandera++;
+                    if (!$this->Asignacione->save($datos)) {
+                        $err++;
+                    }
+                    if ($err > 0) {
+                        $this->Session->setFlash(__('¡Ha ocurrido un error al guardar los datos! por favor intente de nuevo.'));
+                        $this->redirect(['action' => 'asignacion']);
+                    } else {
+                        $this->Session->setFlash(__('Se ha guardado exitosamente el registro.'));
+                        $this->redirect(['action' => 'asignacion']);
+                    }
+                }
             }
+        } else {
+            $options = array('conditions' => array('Asignacione.' . $this->Asignacione->primaryKey => $id));
+            $this->set('asignacione', $this->Asignacione->find('first', $options));
+            //$this->request->data = $this->Asignacione->find('first', $options);
+        }
+        $this->loadModel('Facultade');
+
+        $facultades = $this->Facultade->find('list');
+        $catedraticos = $this->Asignacione->Catedratico->find('list');
+        $tipos = [
+            1 => 'Impar',
+            2 => 'Interciclo',
+            3 => 'Par'
+        ];
+        $estados = [
+            0 => 'Inactivo',
+            1 => 'Disponible'
+        ];
+        $secciones = [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5];
+        $this->set(compact('catedraticos', 'tipos', 'estados', 'facultades', 'secciones'));
+    }
+
+    public function editar() {
+        if ($this->request->is(array('post', 'put'))) {
+            
         } else {
             $options = array('conditions' => array('Asignacione.' . $this->Asignacione->primaryKey => $id));
             $this->set('asignacione', $this->Asignacione->find('first', $options));

@@ -37,7 +37,37 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
     <body>
         <div id="container">
             <div id="header">
-                <h1>MPH</h1>
+                <div class="tabla">
+                    <div class="fila">
+                        <div class="celda"><?php echo $this->Html->image('logo_politecnica.png', array('alt' => $cakeDescription, 'border' => '0', 'height' => '125')); ?></div>
+                        <div class="celda"><?php echo $this->Html->link('MPH', '/'); ?> <span class="subtitulo">[Modulo Programador de Horarios]</span></div>
+                    </div>
+                </div>
+                <div class="menu">
+                    <div><?php echo $this->Html->link('Inicio', '/'); ?></div>
+                    <div><?php echo $this->Html->link('Asignación de Aulas', ['controller' => 'asignaciones', 'action' => 'asignacion']); ?></div>
+                    <div>Reportes
+                        <div class="sub-menu" style="width: 270px">
+                            <div>Horarios por Aulas</div>
+                            <div>Horarios Verticales por Carrera</div>
+                            <div>Horarios por Escuela y Nivel</div>
+                            <div>Matriz Global de Horarios</div>
+                        </div>
+                    </div>
+                    <div>Catálogos
+                        <div class="sub-menu" style="width: 120px">
+                            <div><?php echo $this->Html->link('Asignaturas', ['controller' => 'asignaturas', 'action' => 'index']); ?></div>
+                            <div><?php echo $this->Html->link('Aulas', ['controller' => 'aulas', 'action' => 'index']); ?></div>
+                            <div><?php echo $this->Html->link('Carreras', ['controller' => 'carreras', 'action' => 'index']); ?></div>
+                            <div><?php echo $this->Html->link('Catedraticos', ['controller' => 'catedraticos', 'action' => 'index']); ?></div>
+                            <div><?php echo $this->Html->link('Ciclos', ['controller' => 'ciclos', 'action' => 'index']); ?></div>
+                            <div><?php echo $this->Html->link('Dias', ['controller' => 'dias', 'action' => 'index']); ?></div>
+                            <div><?php echo $this->Html->link('Facultades', ['controller' => 'facultades', 'action' => 'index']); ?></div>
+                            <div><?php echo $this->Html->link('Horarios', ['controller' => 'horarios', 'action' => 'index']); ?></div>
+                            <div><?php echo $this->Html->link('Tipo de Aula', ['controller' => 'tipoaulas', 'action' => 'index']); ?></div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div id="content">
 
@@ -47,13 +77,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
             </div>
             <div id="footer">
                 <?php
-                echo $this->Html->link(
-                        $this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')), 'http://www.cakephp.org/', array('target' => '_blank', 'escape' => false, 'id' => 'cake-powered')
-                );
+                echo $this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0'));
                 ?>
-                <p>
-                    <?php echo $cakeVersion; ?>
-                </p>
             </div>
         </div>
         <?php

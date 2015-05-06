@@ -18,7 +18,15 @@ $(document).ready(function () {
 
     $('table').delegate('.asignar', 'click', function (e) {
         e.preventDefault();
-        window.location.href = $(this).attr('href') + '/' + $(this).closest('tr').data('id');
+        if ($(this).parent().data('ocupado') == 0) {
+            window.location.href = $(this).attr('href') + '/' + $(this).closest('tr').data('id');
+        }
+    });
+    $('table').delegate('.editar', 'click', function (e) {
+        e.preventDefault();
+        if ($(this).parent().data('ocupado') == 1) {
+            window.location.href = $(this).attr('href') + '/' + $(this).closest('tr').data('ciclo') + '/' + $(this).closest('tr').data('aula') + '/' + $(this).closest('tr').data('dia') + '/' + $(this).closest('tr').data('horario');
+        }
     });
 
     function buscar() {
@@ -35,7 +43,7 @@ $(document).ready(function () {
                     $('#tblAsig tbody').html('');
                     for (var id in response.asignaciones) {
                         var estado;
-                        var $row = '<tr data-id="' + response.asignaciones[id].Asignacione.id + '">';
+                        var $row = '<tr data-id="' + response.asignaciones[id].Asignacione.id + '" data-ciclo="'+response.asignaciones[id].Ciclo.id+'" data-aula="'+response.asignaciones[id].Aula.id+'" data-dia="'+response.asignaciones[id].Dia.id+'" data-horario="'+response.asignaciones[id].Horario.id+'">';
                         $row += '<td>' + response.asignaciones[id].Aula.nombre + '</td>';
                         $row += '<td>' + response.asignaciones[id].Dia.nombre + '</td>';
                         $row += '<td>' + response.asignaciones[id].Horario.hora + ' ' + response.asignaciones[id].Horario.periodo + '</td>';
@@ -46,7 +54,11 @@ $(document).ready(function () {
                         }
                         $row += '<td>' + estado + '</td>';
                         $row += '<td>' + response.asignaciones[id].Aula.capacidad + '</td>';
-                        $row += '<td>' + $('#acciones').html() + '</td>';
+                        if (response.asignaciones[id].Asignacione.ocupado == 1) {
+                            $row += '<td class="actions" data-ocupado="1">' + $('#acciones').html() + '</td>';
+                        } else {
+                            $row += '<td class="actions" data-ocupado="0">' + $('#acciones').html() + '</td>';
+                        }
                         $row += '</tr>';
                         $('#tblAsig tbody').append($row);
                     }

@@ -88,4 +88,10 @@ class Ciclo extends AppModel {
         }
     }
 
+    public function actual() {
+        $this->recursive = -1;
+        $ciclo = $this->find('first', ['conditions' => ['estado' => 1]]);
+        return $ciclo;
+    }
+
 }

@@ -1,6 +1,7 @@
 <fieldset><legend>Cadena de Negocio</legend>
     <ul>
         <li><?php echo $this->Html->link('Asignación de Aulas', ['controller' => 'asignaciones', 'action' => 'asignacion']); ?></li>
+        <li><?php echo $this->Html->link('Reportes', ['controller' => 'asignaciones', 'action' => 'asignacion']); ?></li>
     </ul>
 </fieldset>
 <fieldset><legend>Mantenimientos</legend>
