@@ -45,7 +45,13 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                 </div>
                 <div class="menu">
                     <div><?php echo $this->Html->link('Inicio', '/'); ?></div>
-                    <div><?php echo $this->Html->link('Asignación de Aulas', ['controller' => 'asignaciones', 'action' => 'asignacion']); ?></div>
+                    <div>Asignaciones
+                        <div class="sub-menu" style="width: 170px">
+                            <div><?php echo $this->Html->link('Asignación de Aulas', ['controller' => 'asignaciones', 'action' => 'asignacion']); ?></div>
+                            <div><?php echo $this->Html->link('Clonar Asignación', ['controller' => 'asignaciones', 'action' => 'clonar']); ?></div>
+                        </div>
+
+                    </div>
                     <div>Reportes
                         <div class="sub-menu" style="width: 270px">
                             <div><?php echo $this->Html->link('Horarios por Aulas', ['controller' => 'reportes', 'action' => 'aulas']); ?></div>

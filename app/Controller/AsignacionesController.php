@@ -310,6 +310,10 @@ class AsignacionesController extends AppController {
         $this->response->body($json);
     }
 
+    public function clonar() {
+        
+    }
+
     /**
      * index method
      *
