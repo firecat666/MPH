@@ -314,6 +314,10 @@ class AsignacionesController extends AppController {
         
     }
 
+    public function cambiar_aula() {
+        
+    }
+
     /**
      * index method
      *
