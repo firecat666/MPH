@@ -3,6 +3,8 @@ var dia = 0;
 var horario = 0;
 $(document).ready(function () {
 
+    buscar();
+
     $('#cbCapacidad').change(function () {
         capacidad = $(this).val();
         buscar();
@@ -16,57 +18,25 @@ $(document).ready(function () {
         buscar();
     });
 
-    $('table').delegate('.asignar', 'click', function (e) {
-        e.preventDefault();
-        if ($(this).parent().data('ocupado') == 0) {
-            window.location.href = $(this).attr('href') + '/' + $(this).closest('tr').data('id');
-        }
-    });
-    $('table').delegate('.editar', 'click', function (e) {
-        e.preventDefault();
-        if ($(this).parent().data('ocupado') == 1) {
-            window.location.href = $(this).attr('href') + '/' + $(this).closest('tr').data('ciclo') + '/' + $(this).closest('tr').data('aula') + '/' + $(this).closest('tr').data('dia') + '/' + $(this).closest('tr').data('horario');
-        }
-    });
     $('table').delegate('.changeAula', 'click', function (e) {
         e.preventDefault();
-        if ($(this).parent().data('ocupado') == 1) {
-            window.location.href = $(this).attr('href') + '/' + $(this).closest('tr').data('id');
-        }
-    });
-
-    $('table').delegate('.borrar', 'click', function (e) {
-        e.preventDefault();
-        if ($(this).parent().data('ocupado') == 1) {
-            if (confirm('\u00bfEstá seguro que desea liberar esta asignación?')) {
-                $.ajax({
-                    url: "borrar.json",
-                    dataType: 'json',
-                    type: 'POST',
-                    data: {ciclo: $(this).closest('tr').data('ciclo'), aula: $(this).closest('tr').data('aula'), dia: $(this).closest('tr').data('dia'), horario: $(this).closest('tr').data('horario')},
-                    beforeSend: function (xhr) {
-
-                    },
-                    success: function (data, textStatus, jqXHR) {
-                        if (data.EXEC) {
-                            buscar();
-                        }
-
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-
-                    }
-                });
-            }
-        }
+        $('#dID').val($(this).parent().parent().data('id'));
+        $('#dHorario').val($(this).parent().parent().data('horario'));
+        $('#dDia').val($(this).parent().parent().data('dia'));
+        $('#dAula').val($(this).parent().parent().data('aula'));
+        $('#dCiclo').val($(this).parent().parent().data('ciclo'));
+        $('#dAsignatura').val($(this).parent().parent().data('asignatura'));
+        $('#dCatedratico').val($(this).parent().parent().data('catedratico'));
+        $('#dOcupado').val($(this).parent().data('ocupado'));
+        $('#AsignacioneCambiarAulaForm').submit();
     });
 
     function buscar() {
         ajax = $.ajax({
-            url: "disponibles.json",
+            url: "../ajaxCambio.json",
             dataType: 'json',
             type: "POST",
-            data: {capacidad: $("#cbCapacidad").val(), dia: $("#cbDia").val(), horario: $("#hora").val()},
+            data: {capacidad: $("#cbCapacidad").val(), dia: $("#cbDia").val(), horario: $("#hora").val(), id: $("#asignacion").data('id')},
             beforeSend: function () {
                 //falta una imagend e carga o algo
             },
@@ -75,7 +45,7 @@ $(document).ready(function () {
                     $('#tblAsig tbody').html('');
                     for (var id in response.asignaciones) {
                         var estado;
-                        var $row = '<tr data-id="' + response.asignaciones[id].Asignacione.id + '" data-ciclo="' + response.asignaciones[id].Ciclo.id + '" data-aula="' + response.asignaciones[id].Aula.id + '" data-dia="' + response.asignaciones[id].Dia.id + '" data-horario="' + response.asignaciones[id].Horario.id + '">';
+                        var $row = '<tr data-id="' + response.asignaciones[id].Asignacione.id + '" data-ciclo="' + response.asignaciones[id].Ciclo.id + '" data-aula="' + response.asignaciones[id].Aula.id + '" data-dia="' + response.asignaciones[id].Dia.id + '" data-horario="' + response.asignaciones[id].Horario.id + '" data-asignatura="'+response.asignaciones[id].Asignatura.id+'" data-catedratico="'+response.asignaciones[id].Catedratico.id+'">';
                         $row += '<td>' + response.asignaciones[id].Aula.nombre + '</td>';
                         $row += '<td>' + response.asignaciones[id].Dia.nombre + '</td>';
                         $row += '<td>' + response.asignaciones[id].Horario.hora + ' ' + response.asignaciones[id].Horario.periodo + '</td>';

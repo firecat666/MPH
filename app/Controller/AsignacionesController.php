@@ -51,7 +51,39 @@ class AsignacionesController extends AppController {
             $options['conditions']['Horario.id'] = $horario;
         }
         $options['conditions']['Asignacione.estado'] = 1;
-        //falta ciclo actual
+
+        $ciclo = $this->Asignacione->Ciclo->actual();
+        $options['conditions']['Asignacione.ciclo_id'] = $ciclo['Ciclo']['id'];
+        $asignaciones = $this->Asignacione->find('all', $options); // if si falla
+        $EXEC = TRUE;
+        $r = compact('EXEC', 'asignaciones');
+        $this->response->type('json');
+        $json = json_encode($r);
+        $this->response->body($json);
+    }
+
+    public function ajaxCambio() {
+        $this->autoRender = false;
+
+        $capacidad = $this->request->data['capacidad'];
+        $dia = $this->request->data['dia'];
+        $horario = $this->request->data['horario'];
+        $id = $this->request->data['id'];
+
+        $options = ['conditions' => []];
+
+        if ($capacidad != '') {
+            $options['conditions']['Aula.capacidad'] = $capacidad;
+        }
+        if ($dia != '') {
+            $options['conditions']['Dia.id'] = $dia;
+        }
+        if ($horario != '') {
+            $options['conditions']['Horario.id'] = $horario;
+        }
+        $options['conditions']['Asignacione.estado'] = 1;
+        $options['conditions']['NOT'] = ['Asignacione.id' => [$id]];
+
         $ciclo = $this->Asignacione->Ciclo->actual();
         $options['conditions']['Asignacione.ciclo_id'] = $ciclo['Ciclo']['id'];
         $asignaciones = $this->Asignacione->find('all', $options); // if si falla
@@ -314,8 +346,141 @@ class AsignacionesController extends AppController {
         
     }
 
-    public function cambiar_aula() {
-        
+    public function cambiar_aula($_id = null) {
+        if ($this->request->is(array('post', 'put'))) {
+            $options = ['conditions' => []];
+            $options['conditions']['Asignacione.dia_id'] = $this->request->data['oDia'];
+            $options['conditions']['Asignacione.aula_id'] = $this->request->data['oAula'];
+            $options['conditions']['Asignacione.horario_id'] = $this->request->data['oHorario'];
+            $options['conditions']['Asignacione.ciclo_id'] = $this->request->data['oCiclo'];
+            $options['recursive'] = -1;
+
+            $origen = $this->Asignacione->find('all', $options);
+
+            $options['conditions']['Asignacione.dia_id'] = $this->request->data['dDia'];
+            $options['conditions']['Asignacione.aula_id'] = $this->request->data['dAula'];
+            $options['conditions']['Asignacione.horario_id'] = $this->request->data['dHorario'];
+            $options['conditions']['Asignacione.ciclo_id'] = $this->request->data['dCiclo'];
+            $options['recursive'] = -1;
+
+            $destino = $this->Asignacione->find('all', $options);
+            $first = 0;
+            $err = 0;
+            if ($this->request->data['dOcupado'] == 0) {
+                foreach ($origen as $asignacion) {
+
+                    if ($first == 0) {
+                        $asignacion['Asignacione']['ocupado'] = 0;
+                        $asignacion['Asignacione']['seccion'] = 0;
+                        $this->Asignacione->create($asignacion);
+                        if (!$this->Asignacione->save()) {
+                            $err++;
+                        }
+                        if (!$this->Asignacione->saveField('asignatura_id', null)) {
+                            $err++;
+                        }
+                        if (!$this->Asignacione->saveField('catedratico_id', null)) {
+                            $err++;
+                        }
+                    } else {
+                        //aula dia horario
+                        $asignacion['Asignacione']['aula_id'] = $this->request->data['dAula'];
+                        $asignacion['Asignacione']['dia_id'] = $this->request->data['dDia'];
+                        $asignacion['Asignacione']['horario_id'] = $this->request->data['dHorario'];
+                        $this->Asignacione->create($asignacion);
+                        if (!$this->Asignacione->save()) {
+                            $err++;
+                        }
+                    }
+                    $first++;
+                }
+                $this->Asignacione->create();
+                $destino[0]['Asignacione']['asignatura_id'] = $this->request->data['oAsignatura'];
+                $destino[0]['Asignacione']['catedratico_id'] = $this->request->data['oCatedratico'];
+                $destino[0]['Asignacione']['ocupado'] = 1;
+                $destino[0]['Asignacione']['seccion'] = $origen[0]['Asignacione']['seccion'];
+                if (!$this->Asignacione->save($destino[0])) {
+                    $err++;
+                }
+            } else {
+                //cambiar asignaturas en ambas
+                //cambiar todos los datos de homonimas en ambas
+                foreach ($origen as $asignacion) {
+                    if ($first == 0) {
+                        $asignacion['Asignacione']['seccion'] = $destino[0]['Asignacione']['seccion'];
+                        $asignacion['Asignacione']['catedratico_id'] = $this->request->data['dCatedratico'];
+                        $asignacion['Asignacione']['asignatura_id'] = $this->request->data['dAsignatura'];
+
+                        $this->Asignacione->create();
+                        if (!$this->Asignacione->save($asignacion)) {
+                            $err++;
+                        }
+                    } else {
+                        $asignacion['Asignacione']['aula_id'] = $this->request->data['dAula'];
+                        $asignacion['Asignacione']['dia_id'] = $this->request->data['dDia'];
+                        $asignacion['Asignacione']['horario_id'] = $this->request->data['dHorario'];
+
+                        $this->Asignacione->create();
+                        if (!$this->Asignacione->save($asignacion)) {
+                            $err++;
+                        }
+                    }
+                    $first++;
+                }
+                $first = 0;
+                foreach ($destino as $asignacion) {
+                    if ($first == 0) {
+                        $asignacion['Asignacione']['seccion'] = $origen[0]['Asignacione']['seccion'];
+                        $asignacion['Asignacione']['catedratico_id'] = $this->request->data['oCatedratico'];
+                        $asignacion['Asignacione']['asignatura_id'] = $this->request->data['oAsignatura'];
+
+                        $this->Asignacione->create();
+                        if (!$this->Asignacione->save($asignacion)) {
+                            $err++;
+                        }
+                    } else {
+                        $asignacion['Asignacione']['aula_id'] = $this->request->data['oAula'];
+                        $asignacion['Asignacione']['dia_id'] = $this->request->data['oDia'];
+                        $asignacion['Asignacione']['horario_id'] = $this->request->data['oHorario'];
+
+                        $this->Asignacione->create();
+                        if (!$this->Asignacione->save($asignacion)) {
+                            $err++;
+                        }
+                    }
+                    $first++;
+                }
+            }
+            if ($err == 0) {
+                $this->Session->setFlash(__('¡Se ha guardado la Asignación con éxito!'), 'default', ['class' => 'message success']);
+                return $this->redirect(array('action' => 'asignacion'));
+            } else {
+                $this->Session->setFlash(__('¡Ha ocurrido un error al guardar los datos! por favor intente de nuevo.'));
+                return $this->redirect(array('action' => 'asignacion'));
+            }
+        } else {
+            $options = array('conditions' => array('Asignacione.' . $this->Asignacione->primaryKey => $_id));
+            $this->set('asignacione', $this->Asignacione->find('first', $options));
+        }
+        $dias = $this->Asignacione->Dia->find('list');
+        $this->set(compact('dias'));
+        $this->Asignacione->Horario->recursive = 0;
+        $horarios = $this->Asignacione->Horario->find('all');
+        $arrayHorarios = [];
+        foreach ($horarios as $horario) {
+            $arrayHorarios[$horario['Horario']['id']] = $horario['Horario']['hora'] . ' ' . $horario['Horario']['periodo'];
+        }
+        $this->set('horarios', $arrayHorarios);
+        $capacidades = [5 => 5, 20 => 20, 40 => 40];
+        $this->set(compact('capacidades'));
+        $ocupado = [0 => 'Disponible', 1 => 'Ocupado'];
+        $this->set(compact('ocupado'));
+        $tipos = [
+            1 => 'Impar',
+            2 => 'Interciclo',
+            3 => 'Par'
+        ];
+        $this->set(compact('tipos'));
     }
 
     /**

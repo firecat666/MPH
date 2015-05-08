@@ -1,39 +1,48 @@
+<?php
+echo $this->Html->script('cambiar', array('block' => 'mphjs'));
+?>
 <h2>Cambiar Aula</h2>
-<table>
+<table id="asignacion" data-id="<?php echo $asignacione['Asignacione']['id']; ?>">
     <tbody><tr>
-            <td><strong>Aula: </strong>Aula 11</td>
-            <td><strong>Capacidad: </strong>20</td>
-            <td><strong>Dia: </strong>Lunes</td>
-            <td><strong>Horario: </strong>7:00 a 8:30 AM</td>
-            <td><strong>Año: </strong>2016</td>
-            <td><strong>Ciclo: </strong>Par</td>
-            <td><strong>Estado: </strong>Ocupado</td>
+            <td><strong>Aula: </strong><?php echo $asignacione['Aula']['nombre']; ?></td>
+            <td><strong>Capacidad: </strong><?php echo $asignacione['Aula']['capacidad']; ?></td>
+            <td><strong>Dia: </strong><?php echo $asignacione['Dia']['nombre']; ?></td>
+            <td><strong>Horario: </strong><?php echo $asignacione['Horario']['hora']; ?> <?php echo $asignacione['Horario']['periodo']; ?></td>
+            <td><strong>Año: </strong><?php echo $asignacione['Ciclo']['anio']; ?></td>
+            <td><strong>Ciclo: </strong><?php echo $tipos[$asignacione['Ciclo']['tipo']]; ?></td>
+            <td><strong>Estado: </strong><?php echo $ocupado[$asignacione['Asignacione']['ocupado']]; ?></td>
+            <td><strong>Asignatura: </strong><?php echo $asignacione['Asignatura']['nombre']; ?></td>
         </tr>
     </tbody>
 </table>
 <form id="frmBusqueda">
-    <select name="data[cbCapacidad]" id="cbCapacidad">
-        <option value="">Seleccione capacidad</option>
-        <option value="5">5</option>
-        <option value="20">20</option>
-        <option value="40">40</option>
-    </select><select name="data[cbDia]" id="cbDia">
-        <option value="">Seleccione día</option>
-        <option value="1">Lunes</option>
-        <option value="2">Martes</option>
-        <option value="3">Miércoles</option>
-        <option value="4">Jueves</option>
-        <option value="5">Viernes</option>
-        <option value="6">Sábado</option>
-    </select><select name="data[hora]" id="hora">
-        <option value="">Seleccione Horario</option>
-        <option value="1">7:00 a 8:30 AM</option>
-        <option value="3">6:30 a 8:00 PM</option>
-        <option value="4">6:30 a 8:00 AM</option>
-        <option value="5">5:00 - 6:30 PM</option>
-    </select>
+    <?php
+    echo $this->Form->input('cbCapacidad', ['type' => 'select', 'options' => $capacidades, 'empty' => 'Seleccione capacidad', 'label' => false, 'div' => false]);
+    echo $this->Form->input('cbDia', ['type' => 'select', 'empty' => 'Seleccione día', 'options' => $dias, 'label' => false, 'div' => false, 'default' => $asignacione['Dia']['id']]);
+    echo $this->Form->input('hora', ['type' => 'select', 'empty' => 'Seleccione Horario', 'options' => $horarios, 'label' => false, 'div' => false, 'default' => $asignacione['Horario']['id']]);
+    ?>
 </form>
-
+<?php
+echo $this->Form->create('Asignacione');
+?>
+<input type="hidden" value="<?php echo $asignacione['Asignacione']['id']; ?>" id="oID" name="oID">
+<input type="hidden" id="oCatedratico" name="oCatedratico" value="<?php echo $asignacione['Asignacione']['catedratico_id']; ?>">
+<input type="hidden" id="oAsignatura" name="oAsignatura" value="<?php echo $asignacione['Asignacione']['asignatura_id']; ?>">
+<input type="hidden" id="oHorario" name="oHorario" value="<?php echo $asignacione['Asignacione']['horario_id']; ?>">
+<input type="hidden" id="oDia" name="oDia" value="<?php echo $asignacione['Asignacione']['dia_id']; ?>">
+<input type="hidden" id="oAula" name="oAula" value="<?php echo $asignacione['Asignacione']['aula_id']; ?>">
+<input type="hidden" id="oCiclo" name="oCiclo" value="<?php echo $asignacione['Asignacione']['ciclo_id']; ?>">
+<input type="hidden" id="dID" name="dID">
+<input type="hidden" id="dCatedratico" name="dCatedratico">
+<input type="hidden" id="dAsignatura" name="dAsignatura">
+<input type="hidden" id="dHorario" name="dHorario">
+<input type="hidden" id="dDia" name="dDia">
+<input type="hidden" id="dAula" name="dAula">
+<input type="hidden" id="dCiclo" name="dCiclo">
+<input type="hidden" id="dOcupado" name="dOcupado">
+<?php
+echo $this->Form->end();
+?>
 <table id="tblAsig">
     <thead>
         <tr>
@@ -44,7 +53,8 @@
             <th>Capacidad</th>
             <th>Acciones</th>
         </tr>
-        <tr style="display: none"><td></td><td></td><td></td><td></td><td></td><td id="acciones"><a href="/mph/asignaciones/asignar" class="asignar">Asignar</a><a href="/mph/asignaciones/editar" class="editar">Modificar</a><a href="/mph/asignaciones/borrar" class="borrar">Liberar</a><a href="/mph/asignaciones/cambiar_aula" class="changeAula">Cambiar Aula</a></td></tr>
+        <tr style="display: none"><td></td><td></td><td></td><td></td><td></td><td id="acciones"><a href="/mph/asignaciones/cambiar_aula" class="changeAula">Cambiar Aula</a></td></tr>
     </thead>
-    <tbody><tr data-id="206" data-ciclo="8" data-aula="1" data-dia="1" data-horario="1"><td>Aula 11</td><td>Lunes</td><td>7:00 a 8:30 AM</td><td>Ocupado</td><td>20</td><td class="actions" data-ocupado="1"><a href="/mph/asignaciones/cambiar_aula" class="changeAula">Cambiar</a></td></tr></tbody>
+    <tbody>
+    </tbody>
 </table>
