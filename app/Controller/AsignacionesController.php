@@ -343,7 +343,59 @@ class AsignacionesController extends AppController {
     }
 
     public function clonar() {
-        
+        if ($this->request->is(array('post', 'put'))) {
+            var_dump($this->request->data);
+            $err = 0;
+            if (!$this->Asignacione->deleteAll(['Asignacione.ciclo_id' => $this->request->data['cicloA']])) {
+                $err++;
+            }
+            $options = ['condition' => [], 'recursive' => -1];
+            $options['conditions']['ciclo_id'] = $this->request->data['cbCiclo'];
+
+            $asignaciones = $this->Asignacione->find('all', $options);
+            foreach ($asignaciones as $asignacion) {
+                $datos = [];
+                //seccion ocupado estado ciclo aula dia horario asignatura catetratico
+                $datos['Asignacione']['seccion'] = $asignacion['Asignacione']['seccion'];
+                $datos['Asignacione']['ocupado'] = $asignacion['Asignacione']['ocupado'];
+                $datos['Asignacione']['estado'] = $asignacion['Asignacione']['estado'];
+                $datos['Asignacione']['ciclo_id'] = $this->request->data['cicloA'];
+                $datos['Asignacione']['aula_id'] = $asignacion['Asignacione']['aula_id'];
+                $datos['Asignacione']['dia_id'] = $asignacion['Asignacione']['dia_id'];
+                $datos['Asignacione']['horario_id'] = $asignacion['Asignacione']['horario_id'];
+                if ($asignacion['Asignacione']['asignatura_id'] != null) {
+                    $datos['Asignacione']['asignatura_id'] = $asignacion['Asignacione']['asignatura_id'];
+                }
+                if ($asignacion['Asignacione']['catedratico_id']) {
+                    $datos['Asignacione']['catedratico_id'] = $asignacion['Asignacione']['catedratico_id'];
+                }
+
+                $this->Asignacione->create();
+                if (!$this->Asignacione->save($datos)) {
+                    echo 1;
+                    $err++;
+                }
+            }
+            if ($err == 0) {
+                $this->Session->setFlash(__('!Se han clonado las asignaciones exitosamente!'), 'default', ['class' => 'message success']);
+                return $this->redirect(array('action' => 'asignacion'));
+            } else {
+                $this->Session->setFlash(__('¡Ha ocurrido un error al guardar los datos! por favor intente de nuevo.'));
+                return $this->redirect(array('action' => 'asignacion'));
+            }
+        }
+        $options = ['condition' => [], 'recursive' => -1];
+        $options['fields'] = ['DISTINCT Ciclo.anio'];
+        $options['order'] = ['Ciclo.anio ASC'];
+        $options['conditions']['estado'] = 0;
+        $ciclos = $this->Asignacione->Ciclo->find('all', $options);
+        $cicloActual = $this->Asignacione->Ciclo->actual();
+        $tipos = [
+            1 => 'Impar',
+            2 => 'Interciclo',
+            3 => 'Par'
+        ];
+        $this->set(compact('ciclos', 'cicloActual', 'tipos'));
     }
 
     public function cambiar_aula($_id = null) {
@@ -452,7 +504,7 @@ class AsignacionesController extends AppController {
                 }
             }
             if ($err == 0) {
-                $this->Session->setFlash(__('¡Se ha guardado la Asignación con éxito!'), 'default', ['class' => 'message success']);
+                $this->Session->setFlash(__('¡Se ha hecho efectivo el cambio!'), 'default', ['class' => 'message success']);
                 return $this->redirect(array('action' => 'asignacion'));
             } else {
                 $this->Session->setFlash(__('¡Ha ocurrido un error al guardar los datos! por favor intente de nuevo.'));

@@ -51,7 +51,7 @@ class CiclosController extends AppController {
                 $this->Ciclo->cambiarEstados();
             }
             if ($this->Ciclo->save($this->request->data)) {
-                $this->Ciclo->Asignacione->initCiclo($this->Ciclo->id);//agregar validaci'on por si falla
+                $this->Ciclo->Asignacione->initCiclo($this->Ciclo->id); //agregar validaci'on por si falla
                 $this->Session->setFlash(__('¡Se ha iniciado el Ciclo con éxito!'), 'default', ['class' => 'message success']);
                 return $this->redirect(array('action' => 'index'));
             } else {
@@ -119,6 +119,20 @@ class CiclosController extends AppController {
             $this->Session->setFlash(__('¡Ha ocurrido un error al borrar los datos! por favor intente de nuevo'));
         }
         return $this->redirect(array('action' => 'index'));
+    }
+
+    public function listadoPorAnio() {
+        $this->autoRender = false;
+        $options = ['conditions' => [], 'recursive' => -1];
+        $options['conditions']['estado'] = 0;
+        $options['conditions']['anio'] = $this->request->data['anio'];
+        $options['order'] = ['Ciclo.anio ASC'];
+        $ciclos = $this->Ciclo->find('all', $options);
+        $EXEC = TRUE;
+        $r = compact('EXEC', 'ciclos');
+        $this->response->type('json');
+        $json = json_encode($r);
+        $this->response->body($json);
     }
 
 }

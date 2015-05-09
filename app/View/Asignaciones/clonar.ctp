@@ -1,22 +1,32 @@
+<?php
+echo $this->Html->script('clonar', array('block' => 'mphjs'));
+?>
 <h2>Clonar Asignación de años anteriores</h2>
+<?php echo $this->Form->create('Asignacione'); ?>
 <fieldset>
     <legend>De:</legend>
-    <select>
-        <option>Seleccione Año</option>
+    <select id="cbAnio">
+        <option value="">Seleccione Año</option>
+        <?php
+        foreach ($ciclos as $ciclo):
+            ?>
+            <option value="<?php echo $ciclo['Ciclo']['anio']; ?>"><?php echo $ciclo['Ciclo']['anio']; ?></option>
+        <?php endforeach; ?>
     </select>
-    <select>
-        <option>Seleccione Ciclo</option>
+    <select id="cbCiclo" name="cbCiclo" disabled="disabled">
+        <option value="">Seleccione Ciclo</option>
     </select>
 </fieldset>
 <fieldset>
     <legend>Para:</legend>
-    <select>
-        <option>Seleccione Año</option>
+    <select disabled="disabled">
+        <option><?php echo $cicloActual['Ciclo']['anio'] ?></option>
     </select>
-    <select>
-        <option>Seleccione Ciclo</option>
+    <select id="cbCicloA" name="cbCicloA" disabled="disabled">
+        <option value="<?php echo $cicloActual['Ciclo']['id'] ?>"><?php echo $tipos[$cicloActual['Ciclo']['tipo']]; ?></option>        
     </select>
+    <input type="hidden" value="<?php echo $cicloActual['Ciclo']['id'] ?>" name="cicloA" id="cicloA">
 </fieldset>
-<form>
-    <div class="submit"><input type="submit" value="Clonar"></div>
-</form>
+
+<div class="submit"><input type="submit" value="Clonar"></div>
+<?php echo $this->Form->end(); ?>
