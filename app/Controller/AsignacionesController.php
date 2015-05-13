@@ -100,7 +100,7 @@ class AsignacionesController extends AppController {
         }
 
         if ($this->request->is(array('post', 'put'))) {
-            var_dump($this->request->data);
+            //var_dump($this->request->data);
             $contAsig = count($this->request->data['Materia']); //Verifica si hay materia homonimas
             if ($contAsig == 1) {
                 $this->request->data['Asignacione']['ocupado'] = 1;
