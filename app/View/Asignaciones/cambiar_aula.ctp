@@ -12,6 +12,7 @@ echo $this->Html->script('cambiar', array('block' => 'mphjs'));
             <td><strong>Ciclo: </strong><?php echo $tipos[$asignacione['Ciclo']['tipo']]; ?></td>
             <td><strong>Estado: </strong><?php echo $ocupado[$asignacione['Asignacione']['ocupado']]; ?></td>
             <td><strong>Asignatura: </strong><?php echo $asignacione['Asignatura']['nombre']; ?></td>
+            <td><strong>Sección:</strong> <?php echo $asignacione['Asignacione']['seccion']; ?></td>
         </tr>
     </tbody>
 </table>
@@ -51,6 +52,7 @@ echo $this->Form->end();
             <th>Horario</th>
             <th>Estado</th>
             <th>Capacidad</th>
+            <th>Asignatura</th>
             <th>Acciones</th>
         </tr>
         <tr style="display: none"><td></td><td></td><td></td><td></td><td></td><td id="acciones"><a href="/mph/asignaciones/cambiar_aula" class="changeAula">Cambiar Aula</a></td></tr>

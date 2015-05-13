@@ -74,6 +74,5 @@ $(document).ready(function () {
     $('table').delegate('.killable', 'click', function (e) {
         e.preventDefault();
         $(this).closest('tr').remove();
-        cont--;
     });
 });

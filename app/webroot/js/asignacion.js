@@ -15,7 +15,6 @@ $(document).ready(function () {
         horario = $(this).val();
         buscar();
     });
-
     $('table').delegate('.asignar', 'click', function (e) {
         e.preventDefault();
         if ($(this).parent().data('ocupado') == 0) {
@@ -34,7 +33,6 @@ $(document).ready(function () {
             window.location.href = $(this).attr('href') + '/' + $(this).closest('tr').data('id');
         }
     });
-
     $('table').delegate('.borrar', 'click', function (e) {
         e.preventDefault();
         if ($(this).parent().data('ocupado') == 1) {
@@ -60,7 +58,6 @@ $(document).ready(function () {
             }
         }
     });
-
     function buscar() {
         ajax = $.ajax({
             url: "disponibles.json",
@@ -86,6 +83,12 @@ $(document).ready(function () {
                         }
                         $row += '<td>' + estado + '</td>';
                         $row += '<td>' + response.asignaciones[id].Aula.capacidad + '</td>';
+                        if (response.asignaciones[id].Asignatura.nombre != null) {
+                            $row += '<td>' + response.asignaciones[id].Asignatura.nombre + ' ' + response.asignaciones[id].Asignacione.seccion + '</td>';
+                        } else {
+                            $row += '<td>-</td>';
+                        }
+                        //console.log(response);
                         if (response.asignaciones[id].Asignacione.ocupado == 1) {
                             $row += '<td class="actions" data-ocupado="1">' + $('#acciones').html() + '</td>';
                         } else {

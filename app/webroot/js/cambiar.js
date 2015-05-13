@@ -45,7 +45,7 @@ $(document).ready(function () {
                     $('#tblAsig tbody').html('');
                     for (var id in response.asignaciones) {
                         var estado;
-                        var $row = '<tr data-id="' + response.asignaciones[id].Asignacione.id + '" data-ciclo="' + response.asignaciones[id].Ciclo.id + '" data-aula="' + response.asignaciones[id].Aula.id + '" data-dia="' + response.asignaciones[id].Dia.id + '" data-horario="' + response.asignaciones[id].Horario.id + '" data-asignatura="'+response.asignaciones[id].Asignatura.id+'" data-catedratico="'+response.asignaciones[id].Catedratico.id+'">';
+                        var $row = '<tr data-id="' + response.asignaciones[id].Asignacione.id + '" data-ciclo="' + response.asignaciones[id].Ciclo.id + '" data-aula="' + response.asignaciones[id].Aula.id + '" data-dia="' + response.asignaciones[id].Dia.id + '" data-horario="' + response.asignaciones[id].Horario.id + '" data-asignatura="' + response.asignaciones[id].Asignatura.id + '" data-catedratico="' + response.asignaciones[id].Catedratico.id + '">';
                         $row += '<td>' + response.asignaciones[id].Aula.nombre + '</td>';
                         $row += '<td>' + response.asignaciones[id].Dia.nombre + '</td>';
                         $row += '<td>' + response.asignaciones[id].Horario.hora + ' ' + response.asignaciones[id].Horario.periodo + '</td>';
@@ -56,6 +56,11 @@ $(document).ready(function () {
                         }
                         $row += '<td>' + estado + '</td>';
                         $row += '<td>' + response.asignaciones[id].Aula.capacidad + '</td>';
+                        if (response.asignaciones[id].Asignatura.nombre != null) {
+                            $row += '<td>' + response.asignaciones[id].Asignatura.nombre + ' ' + response.asignaciones[id].Asignacione.seccion + '</td>';
+                        } else {
+                            $row += '<td>-</td>';
+                        }
                         if (response.asignaciones[id].Asignacione.ocupado == 1) {
                             $row += '<td class="actions" data-ocupado="1">' + $('#acciones').html() + '</td>';
                         } else {

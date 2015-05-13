@@ -100,7 +100,7 @@ class AsignacionesController extends AppController {
         }
 
         if ($this->request->is(array('post', 'put'))) {
-            //var_dump($this->request->data);
+//var_dump($this->request->data);
             $contAsig = count($this->request->data['Materia']); //Verifica si hay materia homonimas
             if ($contAsig == 1) {
                 $this->request->data['Asignacione']['ocupado'] = 1;
@@ -225,19 +225,19 @@ class AsignacionesController extends AppController {
                     $this->Asignacione->delete($delAsignacion);
                     $contReg--;
                 } else {
-                    //echo '???';
+//echo '???';
                     $this->Asignacione->create();
                     $datos = [];
                     $datos['Asignacione']['id'] = $delAsignacion;
                     $datos['Asignacione']['estado'] = 1;
                     $datos['Asignacione']['ocupado'] = 0;
                     $datos['Asignacione']['seccion'] = 0;
-                    //$datos['Asignacione']['asignatura_id'] = null;
+//$datos['Asignacione']['asignatura_id'] = null;
                     $datos['Asignacione']['ciclo_id'] = $_ciclo;
                     $datos['Asignacione']['aula_id'] = $_aula;
                     $datos['Asignacione']['dia_id'] = $_dia;
                     $datos['Asignacione']['horario_id'] = $_horario;
-                    //$datos['Asignacione']['catedratico_id'] = null;
+//$datos['Asignacione']['catedratico_id'] = null;
                     $this->Asignacione->save($datos);
                     $this->Asignacione->saveField('asignatura_id', null);
                     $this->Asignacione->saveField('catedratico_id', null);
@@ -295,7 +295,7 @@ class AsignacionesController extends AppController {
 
     public function borrar() {
         $this->autoRender = false;
-        //var_dump($this->request->data);
+//var_dump($this->request->data);
         $options = [
             'conditions' => [
                 'Asignacione.ciclo_id' => $this->request->data['ciclo'],
@@ -330,7 +330,7 @@ class AsignacionesController extends AppController {
             }
             $first++;
         }
-        //var_dump($asignaciones);
+//var_dump($asignaciones);
         if ($err > 0) {
             $EXEC = false;
         } else {
@@ -355,7 +355,7 @@ class AsignacionesController extends AppController {
             $asignaciones = $this->Asignacione->find('all', $options);
             foreach ($asignaciones as $asignacion) {
                 $datos = [];
-                //seccion ocupado estado ciclo aula dia horario asignatura catetratico
+//seccion ocupado estado ciclo aula dia horario asignatura catetratico
                 $datos['Asignacione']['seccion'] = $asignacion['Asignacione']['seccion'];
                 $datos['Asignacione']['ocupado'] = $asignacion['Asignacione']['ocupado'];
                 $datos['Asignacione']['estado'] = $asignacion['Asignacione']['estado'];
@@ -424,8 +424,8 @@ class AsignacionesController extends AppController {
                     if ($first == 0) {
                         $asignacion['Asignacione']['ocupado'] = 0;
                         $asignacion['Asignacione']['seccion'] = 0;
-                        $this->Asignacione->create($asignacion);
-                        if (!$this->Asignacione->save()) {
+                        $this->Asignacione->create();
+                        if (!$this->Asignacione->save($asignacion)) {
                             $err++;
                         }
                         if (!$this->Asignacione->saveField('asignatura_id', null)) {
@@ -435,12 +435,12 @@ class AsignacionesController extends AppController {
                             $err++;
                         }
                     } else {
-                        //aula dia horario
+//aula dia horario
                         $asignacion['Asignacione']['aula_id'] = $this->request->data['dAula'];
                         $asignacion['Asignacione']['dia_id'] = $this->request->data['dDia'];
                         $asignacion['Asignacione']['horario_id'] = $this->request->data['dHorario'];
-                        $this->Asignacione->create($asignacion);
-                        if (!$this->Asignacione->save()) {
+                        $this->Asignacione->create();
+                        if (!$this->Asignacione->save($asignacion)) {
                             $err++;
                         }
                     }
@@ -455,8 +455,8 @@ class AsignacionesController extends AppController {
                     $err++;
                 }
             } else {
-                //cambiar asignaturas en ambas
-                //cambiar todos los datos de homonimas en ambas
+//cambiar asignaturas en ambas
+//cambiar todos los datos de homonimas en ambas
                 foreach ($origen as $asignacion) {
                     if ($first == 0) {
                         $asignacion['Asignacione']['seccion'] = $destino[0]['Asignacione']['seccion'];
@@ -479,6 +479,7 @@ class AsignacionesController extends AppController {
                     }
                     $first++;
                 }
+                $asignacion = [];
                 $first = 0;
                 foreach ($destino as $asignacion) {
                     if ($first == 0) {
