@@ -2,46 +2,63 @@
 
 //var_dump($asignaciones);
 // create new empty worksheet and set default font
-
-$this->PhpExcel->createWorksheet()
-        ->setDefaultFont('Calibri', 12);
+$this->PhpExcel->createWorksheet()->setDefaultFont('Calibri', 12);
 $this->PhpExcel->setMetaData('Horarios Por Aula');
 $table = [];
 foreach ($dias as $dia) {
-    $table[] = ['label' => $dia];
+    $table[] = ['label' => $dia, 'width' => 25, 'wrap' => true];
 }
-
+$aula = null;
+$horario = null;
+$data = [];
 foreach ($asignaciones as $asignacione) {
-    $this->PhpExcel->mergeCells('A' . $this->PhpExcel->getRow(), 'F' . $this->PhpExcel->getRow());
-    $estilo = [
-        'alignment' => [
-            'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
-        ],
-        'font' => [
-            'bold' => true,
-            'size' => 22
-        ]
-    ];
-    $this->PhpExcel->setStyleToRange('A' . $this->PhpExcel->getRow() . ':F' . $this->PhpExcel->getRow(), $estilo);
+    if ($asignacione['Asignacione']['estado'] == 1) {
+        if ($asignacione['Asignacione']['aula_id'] != $aula) {
+            $this->PhpExcel->addTableRow([]);
+            $aula = $asignacione['Asignacione']['aula_id'];
+            $this->PhpExcel->mergeCells('A' . $this->PhpExcel->getRow(), 'F' . $this->PhpExcel->getRow());
+            $estilo = [
+                'alignment' => [
+                    'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+                ],
+                'font' => [
+                    'bold' => true,
+                    'size' => 22
+                ],
+                'fill' => [
+                    'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                    'color' => ['rgb' => 'dce6f1']
+                ]
+            ];
+            $this->PhpExcel->setStyleToRange('A' . $this->PhpExcel->getRow() . ':F' . $this->PhpExcel->getRow(), $estilo);
 
-    $this->PhpExcel->addTableHeader([['label' => $asignacione['Aula']['nombre']]], array('name' => 'Cambria', 'bold' => true));
-    $this->PhpExcel->addTableHeader($table, array('name' => 'Cambria', 'bold' => true));
-    $this->PhpExcel->addTableRow();
+            $this->PhpExcel->addTableHeader([['label' => $asignacione['Aula']['nombre']]], array('name' => 'Cambria', 'bold' => true));
+            $this->PhpExcel->addTableHeader($table, array('name' => 'Cambria', 'bold' => true));
+        }
+        if ($asignacione['Asignacione']['horario_id'] != $horario) {
+            $data = [];
+            $horario = $asignacione['Asignacione']['horario_id'];
+        }
+        if (!empty($asignacione['Asignacione']['asignatura_id'])) {
+            $data[] = $asignacione['Asignatura']['nombre'] .
+                    "\n" . $asignacione['Asignacione']['seccion'] .
+                    "\n " . $asignacione['Horario']['hora'] .
+                    " " . $asignacione['Horario']['periodo'];
+        } else {
+            $data[] = "";
+        }
+        if (count($data) == count($dias)) {
+            $this->PhpExcel->addTableRow($data);
+        }
+    }
 }
 
-
-// add data
-/* foreach ($data as $d) {
-  $this->PhpExcel->addTableRow(array(
-  $d['User']['name'],
-  $d['Type']['name'],
-  $d['User']['date'],
-  $d['User']['description'],
-  $d['User']['modified']
-  ));
-  } */
-
-//$this->PhpExcel->mergeCells('A3', 'A5');
-// close table and output
-$this->PhpExcel->addTableFooter()->output();
+$this->PhpExcel->setWrapToRange("A1:F" . $this->PhpExcel->getRow());
+$estilo2 = [
+    'alignment' => [
+        'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER
+    ]
+];
+$this->PhpExcel->setStyleToRange("A1:F" . $this->PhpExcel->getRow(), $estilo2);
+$this->PhpExcel->addTableFooter()->output('Horarios por Aula.xlsx');
 ?>

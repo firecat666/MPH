@@ -53,7 +53,6 @@ class PhpExcelHelper extends AppHelper {
 
         $this->_xls = new PHPExcel();
         $this->_row = 1;
-
         return $this;
     }
 
@@ -168,6 +167,10 @@ class PhpExcelHelper extends AppHelper {
         $this->_xls->getActiveSheet()->getStyle($range)->applyFromArray($style);
     }
 
+    public function setWrapToRange($range) {
+        $this->_xls->getActiveSheet()->getStyle($range)->getAlignment()->setWrapText(true);
+    }
+
     public function setMetaData($titulo) {
         $this->_xls->getProperties()->setCreator('MPH')->setLastModifiedBy('MPH')->setTitle($titulo)
                 ->setSubject("PHPExcel Test Document")
@@ -264,6 +267,13 @@ class PhpExcelHelper extends AppHelper {
         $this->_row++;
         $this->_tableParams['row_count'] ++;
 
+        return $this;
+    }
+
+    public function columnWidth($col, $width) {
+        //$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(10);
+        //$this->_xls->getActiveSheet()->getColumnDimensionByColumn($col)->setWidth($width);
+        $this->_xls->getActiveSheet()->getDefaultColumnDimension()->setWidth($width);
         return $this;
     }
 
