@@ -14,6 +14,8 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 ?>
+<h1>ERROR 404</h1>
+<h2>Página No Encontrada</h2>
 <h2><?php echo $message; ?></h2>
 <p class="error">
 	<strong><?php echo __d('cake', 'Error'); ?>: </strong>

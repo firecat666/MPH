@@ -40,7 +40,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                 <div class="tabla">
                     <div class="fila">
                         <div class="celda"><?php echo $this->Html->image('logo_politecnica.png', array('alt' => $cakeDescription, 'border' => '0', 'height' => '125')); ?></div>
-                        <div class="celda"><?php echo $this->Html->link('MPH', '/'); ?> <span class="subtitulo">[Modulo Programador de Horarios]</span></div>
+                        <div class="celda"><?php echo $this->Html->link('MPH 2.0', '/'); ?> <span class="subtitulo">[Modulo Programador de Horarios]</span></div>
                     </div>
                 </div>
                 <div class="menu">
@@ -73,6 +73,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                             <div><?php echo $this->Html->link('Tipo de Aula', ['controller' => 'tipoaulas', 'action' => 'index']); ?></div>
                         </div>
                     </div>
+                    <div><?php echo $this->Html->link('Cerrar Sessión', ['controller' => 'usuarios', 'action' => 'logout']); ?></div>
                 </div>
             </div>
             <div id="content">

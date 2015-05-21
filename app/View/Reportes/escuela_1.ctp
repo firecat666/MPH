@@ -13,7 +13,8 @@ if ($xls == 1) {
     $dia = 1;
     $first = 1;
     foreach ($asignaciones as $asignacion) {
-        if ($asignacion['Asignacione']['horario_id'] != $horario || ($asignacion['Asignacione']['horario_id'] == $horario && $asignacion['Asignatura']['nivel'] != $level)) {
+        var_dump($data);
+        if ($asignacion['Asignacione']['horario_id'] != $horario) {
             if (count($data) < count($dias) && $first != 1) {
                 $diferencia = count($dias) - count($data);
                 for ($i = 0; $i < $diferencia; $i++) {
@@ -61,7 +62,7 @@ if ($xls == 1) {
                     "\n " . $asignacion['Horario']['hora'] .
                     " " . $asignacion['Horario']['periodo'] .
                     "\n" . $asignacion['Aula']['nombre'] .
-                    "      0" . $asignacion['Asignacione']['seccion'];
+                    "      -0" . $asignacion['Asignacione']['seccion'] . '-' . $asignacion['Asignatura']['nivel'];
             $dia++;
         } else {
             $diferencia = $asignacion['Asignacione']['dia_id'] - $dia;
@@ -73,13 +74,12 @@ if ($xls == 1) {
                     "\n " . $asignacion['Horario']['hora'] .
                     " " . $asignacion['Horario']['periodo'] .
                     "\n" . $asignacion['Aula']['nombre'] .
-                    "      0" . $asignacion['Asignacione']['seccion'];
+                    "      0" . $asignacion['Asignacione']['seccion'] . '-' . $asignacion['Asignatura']['nivel'];
             $dia++;
         }
         if (count($data) == count($dias)) {
             $this->PhpExcel->addTableRow($data);
         }
-        var_dump($data);
     }
     if (count($data) < count($dias) && $first != 1) {
         $diferencia = count($dias) - count($data);

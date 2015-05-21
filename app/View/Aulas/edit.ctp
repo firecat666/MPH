@@ -6,7 +6,13 @@
         echo $this->Form->input('id');
         echo $this->Form->input('codigo', ['label' => 'Código']);
         echo $this->Form->input('nombre');
-        echo $this->Form->input('capacidad');
+        echo $this->Form->input('capacidad', [
+            'type' => 'select',
+            'empty' => 'Seleccione Capacidad',
+            'options' => [5 => 5, 20 => 20, 40 => 40],
+            'default' => $this->request->data['Aula']['capacidad']
+                ]
+        );
         echo $this->Form->input('estado');
         echo $this->Form->input('tipoaula_id', ['label' => 'Tipo de Aula', 'empty' => 'Seleccione Tipo de Aula']);
         ?>

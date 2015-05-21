@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Application level Controller
  *
@@ -19,7 +20,6 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  * jhgftytf
  */
-
 App::uses('Controller', 'Controller');
 
 /**
@@ -32,4 +32,27 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+
+    public $components = [
+        'Auth' => [
+            'authenticate' => [
+                'Form' => [
+                    'userModel' => 'Usuario',
+                    'fields' => [
+                        'username' => 'alias',
+                        'password' => 'contrasena'
+                    ],
+                    'passwordHasher' => [
+                        'className' => 'Simple',
+                        'hashType' => 'md5'
+                    ]
+                ]
+            ],
+            'loginAction' => [
+                'controller' => 'usuarios',
+                'action' => 'login'
+            ]
+        ]
+    ];
+
 }

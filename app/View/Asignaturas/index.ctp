@@ -16,7 +16,7 @@
             <?php foreach ($asignaturas as $asignatura): ?>
                 <tr>
                     <td><?php echo h($asignatura['Asignatura']['id']); ?>&nbsp;</td>
-                    <td><?php echo h($asignatura['Asignatura']['nivel']); ?>&nbsp;</td>
+                    <td><?php echo h($nivelRomanos[$asignatura['Asignatura']['nivel']]); ?>&nbsp;</td>
                     <td><?php echo h($asignatura['Asignatura']['codigo']); ?>&nbsp;</td>
                     <td><?php echo h($asignatura['Asignatura']['nombre']); ?>&nbsp;</td>
                     <td><?php echo h($asignatura['Asignatura']['estado']); ?>&nbsp;</td>

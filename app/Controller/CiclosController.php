@@ -124,7 +124,7 @@ class CiclosController extends AppController {
     public function listadoPorAnio() {
         $this->autoRender = false;
         $options = ['conditions' => [], 'recursive' => -1];
-        $options['conditions']['estado'] = 0;
+        /*$options['conditions']['estado'] = 1;*/
         $options['conditions']['anio'] = $this->request->data['anio'];
         $options['order'] = ['Ciclo.anio ASC'];
         $ciclos = $this->Ciclo->find('all', $options);

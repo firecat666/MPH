@@ -4,6 +4,7 @@
 // create new empty worksheet and set default font
 $this->PhpExcel->createWorksheet()->setDefaultFont('Calibri', 12);
 $this->PhpExcel->setMetaData('Horarios Por Aula');
+$this->PhpExcel->setSheetName('Horarios Por Aula');
 $table = [];
 foreach ($dias as $dia) {
     $table[] = ['label' => $dia, 'width' => 25, 'wrap' => true];
@@ -36,12 +37,12 @@ foreach ($asignaciones as $asignacione) {
             $this->PhpExcel->addTableHeader($table, array('name' => 'Cambria', 'bold' => true));
         }
         if ($asignacione['Asignacione']['horario_id'] != $horario) {
-            $data = [];
             $horario = $asignacione['Asignacione']['horario_id'];
+            $data = [];
         }
         if (!empty($asignacione['Asignacione']['asignatura_id'])) {
             $data[] = $asignacione['Asignatura']['nombre'] .
-                    "\n" . $asignacione['Asignacione']['seccion'] .
+                    "\n0" . $asignacione['Asignacione']['seccion'] .
                     "\n " . $asignacione['Horario']['hora'] .
                     " " . $asignacione['Horario']['periodo'];
         } else {
@@ -60,5 +61,6 @@ $estilo2 = [
     ]
 ];
 $this->PhpExcel->setStyleToRange("A1:F" . $this->PhpExcel->getRow(), $estilo2);
+
 $this->PhpExcel->addTableFooter()->output('Horarios por Aula.xlsx');
 ?>

@@ -167,6 +167,10 @@ class PhpExcelHelper extends AppHelper {
         $this->_xls->getActiveSheet()->getStyle($range)->applyFromArray($style);
     }
 
+    public function getColumn() {
+        return $this->_xls->getActiveSheet()->getHighestColumn();
+    }
+
     public function setWrapToRange($range) {
         $this->_xls->getActiveSheet()->getStyle($range)->getAlignment()->setWrapText(true);
     }
@@ -177,6 +181,11 @@ class PhpExcelHelper extends AppHelper {
                 ->setDescription("Reporte Generado con MPH")
                 ->setKeywords("office PHPExcel php MPH")
                 ->setCategory("Reporte");
+    }
+
+    public function setFormatToRange($range, $format) {
+        //$objPHPExcel->getActiveSheet()->getStyle('A3')->getNumberFormat()->setFormatCode('0000');
+        $this->_xls->getActiveSheet()->getStyle($range)->getNumberFormat()->setFormatCode($format);
     }
 
     /**

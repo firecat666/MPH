@@ -1,4 +1,4 @@
-<fieldset><legend>Cadena de Negocio</legend>
+<fieldset><legend>Funciones de Sistema</legend>
     <ul>
         <li><?php echo $this->Html->link('Asignación de Aulas', ['controller' => 'asignaciones', 'action' => 'asignacion']); ?></li>
         <li><?php echo $this->Html->link('Reportes', ['controller' => 'asignaciones', 'action' => 'asignacion']); ?></li>

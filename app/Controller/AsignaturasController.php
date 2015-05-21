@@ -26,6 +26,24 @@ class AsignaturasController extends AppController {
     public function index() {
         $this->Asignatura->recursive = 0;
         $this->set('asignaturas', $this->Paginator->paginate());
+        $nivelRomanos = [
+            1 => 'I',
+            2 => 'II',
+            3 => 'III',
+            4 => 'IV',
+            5 => 'V',
+            6 => 'VI',
+            7 => 'VII',
+            8 => 'VIII',
+            9 => 'IX',
+            10 => 'X',
+            11 => 'XI',
+            12 => 'XII',
+            13 => 'XIII',
+            14 => 'XIV',
+            15 => 'XV'
+        ];
+        $this->set(compact('nivelRomanos'));
     }
 
     /**
@@ -44,7 +62,24 @@ class AsignaturasController extends AppController {
             }
         }
         $carreras = $this->Asignatura->Carrera->find('list');
-        $this->set(compact('carreras'));
+        $nivelRomanos = [
+            1 => 'I',
+            2 => 'II',
+            3 => 'III',
+            4 => 'IV',
+            5 => 'V',
+            6 => 'VI',
+            7 => 'VII',
+            8 => 'VIII',
+            9 => 'IX',
+            10 => 'X',
+            11 => 'XI',
+            12 => 'XII',
+            13 => 'XIII',
+            14 => 'XIV',
+            15 => 'XV'
+        ];
+        $this->set(compact('carreras', 'nivelRomanos'));
     }
 
     /**
@@ -71,7 +106,24 @@ class AsignaturasController extends AppController {
             $this->request->data = $this->Asignatura->find('first', $options);
         }
         $carreras = $this->Asignatura->Carrera->find('list');
-        $this->set(compact('carreras'));
+        $nivelRomanos = [
+            1 => 'I',
+            2 => 'II',
+            3 => 'III',
+            4 => 'IV',
+            5 => 'V',
+            6 => 'VI',
+            7 => 'VII',
+            8 => 'VIII',
+            9 => 'IX',
+            10 => 'X',
+            11 => 'XI',
+            12 => 'XII',
+            13 => 'XIII',
+            14 => 'XIV',
+            15 => 'XV'
+        ];
+        $this->set(compact('carreras', 'nivelRomanos'));
     }
 
     /**
