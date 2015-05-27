@@ -76,4 +76,10 @@ $(document).ready(function () {
         $(this).closest('tr').remove();
         cont--;
     });
+
+    $('input[type=submit]').click(function (e) {
+        if (cont <= 0) {
+            e.preventDefault();
+        }
+    });
 });

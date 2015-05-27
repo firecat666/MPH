@@ -1,6 +1,7 @@
 var capacidad = 0;
 var dia = 0;
 var horario = 0;
+var tipoAula = 0;
 $(document).ready(function () {
 
     $('#cbCapacidad').change(function () {
@@ -13,6 +14,10 @@ $(document).ready(function () {
     });
     $('#hora').change(function () {
         horario = $(this).val();
+        buscar();
+    });
+    $('#tipoAula').change(function () {
+        tipoAula = $(this).val();
         buscar();
     });
     $('table').delegate('.asignar', 'click', function (e) {
@@ -63,7 +68,7 @@ $(document).ready(function () {
             url: "disponibles.json",
             dataType: 'json',
             type: "POST",
-            data: {capacidad: $("#cbCapacidad").val(), dia: $("#cbDia").val(), horario: $("#hora").val()},
+            data: {capacidad: $("#cbCapacidad").val(), dia: $("#cbDia").val(), horario: $("#hora").val(), tipo: tipoAula},
             beforeSend: function () {
                 //falta una imagend e carga o algo
             },

@@ -5,7 +5,7 @@
         <?php
         echo $this->Form->input('hora');
         echo $this->Form->input('periodo', ['empty' => 'Seleccione Periodo', 'label' => 'Periodo', 'type' => 'select', 'options' => $periodos]);
-        echo $this->Form->input('estado');
+        echo $this->Form->input('estado',['label'=>'Activo']);
         ?>
     </fieldset>
     <?php echo $this->Form->end(__('Guardar')); ?>

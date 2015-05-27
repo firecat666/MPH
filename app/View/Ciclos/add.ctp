@@ -5,7 +5,7 @@
         <?php
         echo $this->Form->select('tipo', $tipos, ['label' => 'Tipo', 'empty' => 'Seleccione Tipo']);
         echo $this->Form->input('anio', ['label' => 'Año']);
-        echo $this->Form->input('estado');
+        echo $this->Form->input('estado',['label'=>'Activo']);
         ?>
     </fieldset>
     <?php echo $this->Form->end(__('Guardar')); ?>

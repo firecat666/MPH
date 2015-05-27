@@ -6,7 +6,7 @@
 		echo $this->Form->input('id');
 		echo $this->Form->input('codigo', ['label' => 'Código']);
 		echo $this->Form->input('nombre');
-		echo $this->Form->input('estado');
+		echo $this->Form->input('estado',['label'=>'Activo']);
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Guardar')); ?>

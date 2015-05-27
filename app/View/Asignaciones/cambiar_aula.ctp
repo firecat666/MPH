@@ -18,6 +18,7 @@ echo $this->Html->script('cambiar', array('block' => 'mphjs'));
 </table>
 <form id="frmBusqueda">
     <?php
+    echo $this->Form->input('tipoAula',['type' => 'select', 'options' => $tiposAulas, 'empty' => 'Seleccione Tipo de Aula', 'label' => false, 'div' => false]);
     echo $this->Form->input('cbCapacidad', ['type' => 'select', 'options' => $capacidades, 'empty' => 'Seleccione capacidad', 'label' => false, 'div' => false]);
     echo $this->Form->input('cbDia', ['type' => 'select', 'empty' => 'Seleccione día', 'options' => $dias, 'label' => false, 'div' => false, 'default' => $asignacione['Dia']['id']]);
     echo $this->Form->input('hora', ['type' => 'select', 'empty' => 'Seleccione Horario', 'options' => $horarios, 'label' => false, 'div' => false, 'default' => $asignacione['Horario']['id']]);

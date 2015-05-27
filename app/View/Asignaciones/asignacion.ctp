@@ -4,6 +4,7 @@ echo $this->Html->script('asignacion', array('block' => 'mphjs'));
 <h2>Aulas Disponibles</h2>
 <form id="frmBusqueda">
     <?php
+    echo $this->Form->input('tipoAula',['type' => 'select', 'options' => $tiposAulas, 'empty' => 'Seleccione Tipo de Aula', 'label' => false, 'div' => false]);
     echo $this->Form->input('cbCapacidad', ['type' => 'select', 'options' => $capacidades, 'empty' => 'Seleccione capacidad', 'label' => false, 'div' => false]);
     echo $this->Form->input('cbDia', ['type' => 'select', 'empty' => 'Seleccione día', 'options' => $dias, 'label' => false, 'div' => false]);
     echo $this->Form->input('hora', ['type' => 'select', 'empty' => 'Seleccione Horario', 'options' => $horarios, 'label' => false, 'div' => false]);

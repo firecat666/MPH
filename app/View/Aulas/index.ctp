@@ -7,7 +7,7 @@
                 <th><?php echo $this->Paginator->sort('codigo', 'Código'); ?></th>
                 <th><?php echo $this->Paginator->sort('nombre', 'Nombre'); ?></th>
                 <th><?php echo $this->Paginator->sort('capacidad', 'Capacidad'); ?></th>
-                <th><?php echo $this->Paginator->sort('estado', 'Estado'); ?></th>
+                <th><?php echo $this->Paginator->sort('estado', 'Activo'); ?></th>
                 <th><?php echo $this->Paginator->sort('tipoaula_id', 'Tipo de Aula'); ?></th>
                 <th class="actions"><?php echo __('Acciones'); ?></th>
             </tr>

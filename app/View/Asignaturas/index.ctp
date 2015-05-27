@@ -7,7 +7,7 @@
                 <th><?php echo $this->Paginator->sort('nivel'); ?></th>
                 <th><?php echo $this->Paginator->sort('codigo', 'Código'); ?></th>
                 <th><?php echo $this->Paginator->sort('nombre'); ?></th>
-                <th><?php echo $this->Paginator->sort('estado'); ?></th>
+                <th><?php echo $this->Paginator->sort('estado','Activo'); ?></th>
                 <th><?php echo $this->Paginator->sort('carrera_id', 'Carrera'); ?></th>
                 <th class="actions"><?php echo __('Acciones'); ?></th>
             </tr>

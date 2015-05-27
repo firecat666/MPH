@@ -29,7 +29,8 @@ class AsignacionesController extends AppController {
         }
         $this->set('horarios', $arrayHorarios);
         $capacidades = [5 => 5, 20 => 20, 40 => 40];
-        $this->set(compact('capacidades'));
+        $tiposAulas = $this->Asignacione->Aula->Tipoaula->find('list');
+        $this->set(compact('capacidades', 'tiposAulas'));
     }
 
     public function disponibles() {
@@ -38,6 +39,7 @@ class AsignacionesController extends AppController {
         $capacidad = $this->request->data['capacidad'];
         $dia = $this->request->data['dia'];
         $horario = $this->request->data['horario'];
+        $tipo = $this->request->data['tipo'];
 
         $options = ['conditions' => []];
 
@@ -50,10 +52,14 @@ class AsignacionesController extends AppController {
         if ($horario != '') {
             $options['conditions']['Horario.id'] = $horario;
         }
+        if ($tipo != '') {
+            $options['conditions']['Aula.tipoaula_id'] = $tipo;
+        }
         $options['conditions']['Asignacione.estado'] = 1;
 
         $ciclo = $this->Asignacione->Ciclo->actual();
         $options['conditions']['Asignacione.ciclo_id'] = $ciclo['Ciclo']['id'];
+        $options['order'] = ['Dia.id ASC', 'Horario.periodo ASC', 'Horario.hora ASC'];
         $asignaciones = $this->Asignacione->find('all', $options); // if si falla
         $EXEC = TRUE;
         $r = compact('EXEC', 'asignaciones');
@@ -69,6 +75,7 @@ class AsignacionesController extends AppController {
         $dia = $this->request->data['dia'];
         $horario = $this->request->data['horario'];
         $id = $this->request->data['id'];
+        $tipo = $this->request->data['tipo'];
 
         $options = ['conditions' => []];
 
@@ -81,8 +88,12 @@ class AsignacionesController extends AppController {
         if ($horario != '') {
             $options['conditions']['Horario.id'] = $horario;
         }
+        if ($tipo != '') {
+            $options['conditions']['Aula.tipoaula_id'] = $tipo;
+        }
         $options['conditions']['Asignacione.estado'] = 1;
         $options['conditions']['NOT'] = ['Asignacione.id' => [$id]];
+        $options['order'] = ['Dia.id ASC', 'Horario.periodo ASC', 'Horario.hora ASC'];
 
         $ciclo = $this->Asignacione->Ciclo->actual();
         $options['conditions']['Asignacione.ciclo_id'] = $ciclo['Ciclo']['id'];
@@ -533,7 +544,8 @@ class AsignacionesController extends AppController {
             2 => 'Interciclo',
             3 => 'Par'
         ];
-        $this->set(compact('tipos'));
+        $tiposAulas = $this->Asignacione->Aula->Tipoaula->find('list');
+        $this->set(compact('tipos', 'tiposAulas'));
     }
 
     /**

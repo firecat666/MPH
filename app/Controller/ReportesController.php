@@ -24,13 +24,27 @@ class ReportesController extends AppController {
         $this->loadModel('Dia');
         $this->loadModel('Asignacione');
         $this->loadModel('Ciclo');
-        $ciclo = $this->Ciclo->actual();
-        $options = [];
-        $options['conditions']['Asignacione.ciclo_id'] = $ciclo['Ciclo']['id'];
-        $options['order'] = ['Asignacione.aula_id ASC', 'Asignacione.horario_id ASC', 'Asignacione.dia_id ASC', 'Asignacione.id ASC'];
-        $asignaciones = $this->Asignacione->find('all', $options);
-        $dias = $this->Dia->find('list');
-        $this->set(compact('dias', 'asignaciones'));
+        $this->loadModel('Aula');
+        if ($this->request->is('post')) {
+            $xls = 1;
+            $ciclo = $this->Ciclo->actual();
+            $options = [];
+            if ($this->request->data['reporte']['aula'] != '') {
+                $options['conditions']['Asignacione.aula_id'] = $this->request->data['reporte']['aula'];
+            }
+            $options['conditions']['Asignacione.ciclo_id'] = $ciclo['Ciclo']['id'];
+            $options['order'] = ['Asignacione.aula_id ASC', 'Horario.periodo ASC', 'Horario.hora ASC', 'Asignacione.dia_id ASC', 'Asignacione.id ASC'];
+            $asignaciones = $this->Asignacione->find('all', $options);
+            $dias = $this->Dia->find('list');
+            $this->set(compact('dias', 'asignaciones'));
+        } else {
+            $xls = 0;
+            $options = [];
+            $options['order'] = ['Aula.nombre ASC'];
+            $aulas = $this->Aula->find('list');
+            $this->set(compact('aulas'));
+        }
+        $this->set(compact('xls'));
     }
 
     public function verticales() {
@@ -99,7 +113,7 @@ class ReportesController extends AppController {
             $options['conditions']['Asignacione.ocupado'] = 1;
             $options['conditions']['Asignatura.carrera_id'] = $this->request->data['reporte']['carrera']; //aquiiiiiiiiii
 
-            $options['order'] = ['Asignatura.nivel ASC', 'Asignacione.horario_id ASC', 'Asignacione.dia_id ASC'];
+            $options['order'] = ['Asignatura.nivel ASC', 'Horario.periodo ASC', 'Horario.hora ASC', 'Asignacione.dia_id ASC'];
             $asignaciones = $this->Asignacione->find('all', $options);
             $dias = $this->Dia->find('list');
 
@@ -149,7 +163,7 @@ class ReportesController extends AppController {
         $options = [];
         $options['conditions']['Asignacione.ciclo_id'] = $ciclo['Ciclo']['id'];
         $options['conditions']['Asignacione.estado'] = 1;
-        $options['order'] = ['Asignacione.dia_id ASC', 'Asignacione.horario_id ASC', 'Asignacione.aula_id ASC', 'Asignacione.id ASC'];
+        $options['order'] = ['Asignacione.dia_id ASC', 'Horario.periodo ASC', 'Horario.hora ASC', 'Asignacione.aula_id ASC', 'Asignacione.id ASC'];
         $asignaciones = $this->Asignacione->find('all', $options);
         $dias = $this->Dia->find('list');
 

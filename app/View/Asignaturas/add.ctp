@@ -6,7 +6,7 @@
         echo $this->Form->input('nivel', ['type' => 'select', 'empty' => 'Seleccione Nivel', 'options' => $nivelRomanos]);
         echo $this->Form->input('codigo');
         echo $this->Form->input('nombre');
-        echo $this->Form->input('estado');
+        echo $this->Form->input('estado',['label'=>'Activo']);
         echo $this->Form->input('carrera_id', ['empty' => 'Seleccione Carrera']);
         ?>
     </fieldset>

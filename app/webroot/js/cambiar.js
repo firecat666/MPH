@@ -1,6 +1,7 @@
 var capacidad = 0;
 var dia = 0;
 var horario = 0;
+var tipoAula = 0;
 $(document).ready(function () {
 
     buscar();
@@ -15,6 +16,10 @@ $(document).ready(function () {
     });
     $('#hora').change(function () {
         horario = $(this).val();
+        buscar();
+    });
+    $('#tipoAula').change(function () {
+        tipoAula = $(this).val();
         buscar();
     });
 
@@ -36,7 +41,7 @@ $(document).ready(function () {
             url: "../ajaxCambio.json",
             dataType: 'json',
             type: "POST",
-            data: {capacidad: $("#cbCapacidad").val(), dia: $("#cbDia").val(), horario: $("#hora").val(), id: $("#asignacion").data('id')},
+            data: {capacidad: $("#cbCapacidad").val(), dia: $("#cbDia").val(), horario: $("#hora").val(), id: $("#asignacion").data('id'), tipo: $("#tipoAula").val()},
             beforeSend: function () {
                 //falta una imagend e carga o algo
             },

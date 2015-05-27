@@ -11,7 +11,7 @@
             'options' => [5 => 5, 20 => 20, 40 => 40]
                 ]
         );
-        echo $this->Form->input('estado');
+        echo $this->Form->input('estado',['label'=>'Activo']);
         echo $this->Form->input('tipoaula_id', ['label' => 'Tipo de Aula', 'empty' => 'Seleccione Tipo de Aula']);
         ?>
     </fieldset>
