@@ -67,7 +67,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                             <div><?php echo $this->Html->link('Carreras', ['controller' => 'carreras', 'action' => 'index']); ?></div>
                             <div><?php echo $this->Html->link('Catedraticos', ['controller' => 'catedraticos', 'action' => 'index']); ?></div>
                             <div><?php echo $this->Html->link('Ciclos', ['controller' => 'ciclos', 'action' => 'index']); ?></div>
-                            <div><?php echo $this->Html->link('Dias', ['controller' => 'dias', 'action' => 'index']); ?></div>
+                            <!--<div><?php echo $this->Html->link('Dias', ['controller' => 'dias', 'action' => 'index']); ?></div>-->
                             <div><?php echo $this->Html->link('Facultades', ['controller' => 'facultades', 'action' => 'index']); ?></div>
                             <div><?php echo $this->Html->link('Horarios', ['controller' => 'horarios', 'action' => 'index']); ?></div>
                             <div><?php echo $this->Html->link('Tipo de Aula', ['controller' => 'tipoaulas', 'action' => 'index']); ?></div>
