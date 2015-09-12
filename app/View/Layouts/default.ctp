@@ -58,6 +58,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                             <div><?php echo $this->Html->link('Horarios Verticales por Carrera', ['controller' => 'reportes', 'action' => 'verticales']); ?></div>
                             <div><?php echo $this->Html->link('Horarios por Escuela y Nivel', ['controller' => 'reportes', 'action' => 'escuela']); ?></div>
                             <div><?php echo $this->Html->link('Matriz Global de Horarios', ['controller' => 'reportes', 'action' => 'globales']); ?></div>
+                            <div><?php echo $this->Html->link('Hor detalle', ['controller' => 'reportes', 'action' => 'hordetalle']); ?></div>
                         </div>
                     </div>
                     <div>Catálogos

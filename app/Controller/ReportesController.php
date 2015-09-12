@@ -174,5 +174,29 @@ class ReportesController extends AppController {
         $totalHorarios = $this->Horario->find('count', $options);
         $this->set(compact('dias', 'asignaciones', 'aulas', 'totalHorarios'));
     }
+    
+    public function hordetalle() {
+        $this->loadModel('Dia');
+        $this->loadModel('Asignacione');
+        $this->loadModel('Ciclo');
+//        $this->loadModel('Aula');
+        $this->loadModel('Horario');
+        $ciclo = $this->Ciclo->actual();
+        $options = [];
+        $options['conditions']['Asignacione.ciclo_id'] = $ciclo['Ciclo']['id'];
+        $options['conditions']['Asignacione.estado'] = 1;
+        $options['conditions']['Asignacione.ocupado'] = 1;
+        $options['order'] = ['Asignatura.codigo ASC', 'Horario.codigofox ASC', 'Dia.id ASC'];
+        $asignaciones = $this->Asignacione->find('all', $options); 
+//        $dias = $this->Dia->find('list');
+
+//        $aulas = $this->Aula->find('list');
+
+//        $options = [];
+//        $options['conditions']['Horario.estado'] = 1;
+//        $totalHorarios = $this->Horario->find('count', $options);
+//        $this->set(compact('dias', 'asignaciones', 'aulas', 'totalHorarios'));
+        $this->set(compact('asignaciones', 'ciclo'));
+    }    
 
 }

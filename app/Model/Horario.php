@@ -40,6 +40,16 @@ class Horario extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+		'codigofox' => array(
+			'notEmpty' => array(
+				'rule' => array('integer'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				'required' => true,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),            
 		'estado' => array(
 			'boolean' => array(
 				'rule' => array('boolean'),

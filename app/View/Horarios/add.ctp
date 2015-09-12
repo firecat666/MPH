@@ -5,6 +5,7 @@
         <?php
         echo $this->Form->input('hora');
         echo $this->Form->input('periodo', ['empty' => 'Seleccione Periodo', 'label' => 'Periodo', 'type' => 'select', 'options' => $periodos]);
+        echo $this->Form->input('codigofox',['label'=>'Codigo FOX']);
         echo $this->Form->input('estado',['label'=>'Activo']);
         ?>
     </fieldset>

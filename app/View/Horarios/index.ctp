@@ -1,11 +1,15 @@
 <div class="horarios index">
-    <h2><?php echo __('Horarios'); ?></h2>
+    <h2><?php echo __('Horarios'); 
+    
+//    print_r($horarios);
+    ?></h2>
     <table style="border-spacing: 0px;">
         <thead>
             <tr>
                 <th><?php echo $this->Paginator->sort('id'); ?></th>
                 <th><?php echo $this->Paginator->sort('hora'); ?></th>
                 <th><?php echo $this->Paginator->sort('periodo'); ?></th>
+                <th><?php echo $this->Paginator->sort('codigofox'); ?></th>
                 <th><?php echo $this->Paginator->sort('estado','Activo'); ?></th>
                 <th class="actions"><?php echo __('Acciones'); ?></th>
             </tr>
@@ -16,6 +20,7 @@
                     <td><?php echo h($horario['Horario']['id']); ?>&nbsp;</td>
                     <td><?php echo h($horario['Horario']['hora']); ?>&nbsp;</td>
                     <td><?php echo h($horario['Horario']['periodo']); ?>&nbsp;</td>
+                    <td><?php echo h($horario['Horario']['codigofox']); ?>&nbsp;</td>
                     <td><?php echo h($estados[$horario['Horario']['estado']]); ?>&nbsp;</td>
                     <td class="actions">
                         <?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $horario['Horario']['id'])); ?>
